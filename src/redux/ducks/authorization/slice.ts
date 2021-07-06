@@ -7,7 +7,7 @@ interface AuthorizationState {
 
 const initialState = {
   user: null,
-  authenticated: false,
+  authenticated: true,
 } as AuthorizationState;
 
 const authorizationSlice = createSlice({

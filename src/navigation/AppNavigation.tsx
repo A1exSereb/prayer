@@ -3,39 +3,36 @@ import {Column} from '../view/components/columns/columns';
 import React from 'react';
 import {Image, StyleSheet} from 'react-native';
 import {View} from 'react-native';
-import {Authorization} from '../view/components/authorization/authorization';
-import { useState } from 'react';
+import {AuthorizationSignIn} from '../view/components/authorization/authorizationSignIn';
+import {useSelector} from 'react-redux';
+import {RootState} from '../redux/rootReducer';
+import {AuthorizationSignUp} from '../view/components/authorization/authorizationSignUp';
 
 const Stack = createStackNavigator();
 
 export const AppNavigation = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [userToken, setUserToken] = useState(null);
+  const authorization = useSelector((state: RootState) => state.authorization);
+  const {authenticated} = authorization;
 
-  if( isLoading ){
-    return(
-      
-    )
-  }
-  return (
+  return !authenticated ? (
     <Stack.Navigator>
       <Stack.Screen
-        name="Authorization"
-        component={Authorization}
+        name="SignIn"
+        component={AuthorizationSignIn}
         options={{
-          title: 'Please SignIn',
-          headerStyle: {
-            height: 64,
-            borderBottomColor: '#E5E5E5',
-            borderBottomWidth: 1,
-          },
-          headerTintColor: '#514D47',
-          headerTitleStyle: {
-            marginLeft: 150,
-            fontSize: 17,
-          },
+          title: 'Sign In',
         }}
       />
+      <Stack.Screen
+        name="SignUp"
+        component={AuthorizationSignUp}
+        options={{
+          title: 'Sign Up',
+        }}
+      />
+    </Stack.Navigator>
+  ) : (
+    <Stack.Navigator>
       <Stack.Screen
         name="Column"
         component={Column}
