@@ -1,4 +1,5 @@
-import React from 'react';
+import axios from 'axios';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -6,21 +7,38 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
 
 export const AuthorizationSignUp: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
   return (
     <View style={styles.container}>
       <View style={styles.formWrapper}>
         <View style={styles.formRow}>
-          <TextInput style={styles.textInput} placeholder="Enter email" />
+          <TextInput
+            style={styles.textInput}
+            placeholder="Enter email"
+            onChangeText={text => setEmail(text)}
+          />
         </View>
         <View style={styles.formRow}>
-          <TextInput style={styles.textInput} placeholder="Enter name" />
+          <TextInput
+            style={styles.textInput}
+            placeholder="Enter name"
+            onChangeText={text => setName(text)}
+          />
         </View>
         <View style={styles.formRow}>
-          <TextInput style={styles.textInput} placeholder="Enter password" />
+          <TextInput
+            style={styles.textInput}
+            placeholder="Enter password"
+            onChangeText={text => setPassword(text)}
+          />
         </View>
-        <TouchableOpacity style={styles.Btn}>
+        <TouchableOpacity style={styles.Btn} onPress={() => axios.post('')}>
           <Text style={styles.btnText}>Ok</Text>
         </TouchableOpacity>
       </View>

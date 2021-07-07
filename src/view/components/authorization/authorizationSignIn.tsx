@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -6,8 +6,23 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
+import {useSelector} from 'react-redux';
+import {signInRequest} from '../../../redux/ducks/authorization/slice';
+import {useAppDispatch} from '../../../redux/store';
+import {RootState} from '../../../redux/rootReducer';
 
 export const AuthorizationSignIn: React.FC = ({navigation}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useAppDispatch();
+  const {loading} = useSelector((state: RootState) => state.authorization);
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
       <View style={styles.formWrapper}>
@@ -16,6 +31,7 @@ export const AuthorizationSignIn: React.FC = ({navigation}) => {
             style={styles.textInput}
             placeholder="Enter email"
             placeholderTextColor="#000"
+            onChangeText={text => setEmail(text)}
           />
         </View>
         <View style={styles.formRow}>
@@ -23,10 +39,13 @@ export const AuthorizationSignIn: React.FC = ({navigation}) => {
             style={styles.textInput}
             placeholder="Enter password"
             placeholderTextColor="#000"
+            onChangeText={text => setPassword(text)}
           />
         </View>
         <View style={styles.btnContainer}>
-          <TouchableOpacity style={styles.signInBtn}>
+          <TouchableOpacity
+            style={styles.signInBtn}
+            onPress={() => dispatch(signInRequest())}>
             <Text style={styles.signInText}>Sign In</Text>
           </TouchableOpacity>
           <TouchableOpacity

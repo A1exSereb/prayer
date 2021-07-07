@@ -1,12 +1,12 @@
 import {createStackNavigator} from '@react-navigation/stack';
-import {Column} from '../view/components/columns/columns';
+import {Column} from '../components/columns/Column';
 import React from 'react';
 import {Image, StyleSheet} from 'react-native';
 import {View} from 'react-native';
-import {AuthorizationSignIn} from '../view/components/authorization/authorizationSignIn';
+import {AuthorizationSignIn} from '../components/authorization/AuthorizationSignIn';
 import {useSelector} from 'react-redux';
-import {RootState} from '../redux/rootReducer';
-import {AuthorizationSignUp} from '../view/components/authorization/authorizationSignUp';
+import {RootState} from '../../redux/rootReducer';
+import {AuthorizationSignUp} from '../components/authorization/AuthorizationSignUp';
 
 const Stack = createStackNavigator();
 
@@ -51,7 +51,7 @@ export const AppNavigation = () => {
           headerRight: () => (
             <View>
               <Image
-                source={require('../view/assets/plus.jpg')}
+                source={require('../assets/plus.jpg')}
                 style={styles.navigatorAddButton}
               />
             </View>
