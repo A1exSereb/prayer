@@ -45,7 +45,7 @@ export const AuthorizationSignIn: React.FC = ({navigation}) => {
         <View style={styles.btnContainer}>
           <TouchableOpacity
             style={styles.signInBtn}
-            onPress={() => dispatch(signInRequest())}>
+            onPress={() => dispatch(signInRequest({email, password}))}>
             <Text style={styles.signInText}>Sign In</Text>
           </TouchableOpacity>
           <TouchableOpacity

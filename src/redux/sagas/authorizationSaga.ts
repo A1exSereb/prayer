@@ -12,7 +12,7 @@ import {
 } from '../ducks/authorization/slice';
 import {BASE_URL, signin} from '../utils/api';
 
-export async function signIn() {
+export async function signIn(payload: any) {
   console.log('sending');
   const request = await axios({
     method: 'post',
@@ -21,23 +21,21 @@ export async function signIn() {
       'Content-type': 'application/json',
     },
     data: {
-      email: 'string',
-      password: 'string', // This is the body part
+      email: payload.email,
+      password: payload.password,
     },
   });
 
-  console.log(request);
   return request.data;
 }
 
 export function* signInWorker() {
-  console.log('call signin')
-  const data = yield call(signIn);
+  console.log('call signin');
+  const data = yield call(signIn, action.payload);
   console.log(data);
   AsyncStorage.setItem('token', data.token);
+  console.log(data.token);
   yield put(signInSuccess(data));
-  console.log(data);
-  console.log(AsyncStorage.getItem('token'));
 }
 
 export function* watchAuthorizationSaga() {
