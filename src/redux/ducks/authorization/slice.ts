@@ -19,8 +19,8 @@ const authorizationSlice = createSlice({
   name: 'authorization',
   initialState,
   reducers: {
-    signInRequest: (state,) => {
-      return {...state, loading: true};
+    signInRequest: (state, args) => {
+      return {...state, loading: true, args};
     },
     signInSuccess: (state, action: PayloadAction<SignIn>) => {
       return {
@@ -33,8 +33,8 @@ const authorizationSlice = createSlice({
     signInError: state => {
       state.error = true;
     },
-    signUpRequest: state => {
-      return state;
+    signUpRequest: (state, args) => {
+      return {...state, loading: true, args};
     },
     signUpSuccess: (state, action: PayloadAction<SignUp>) => {
       (state.user = action.payload), (state.authenticated = true);

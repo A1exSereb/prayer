@@ -7,13 +7,14 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
-import {useDispatch} from 'react-redux';
+import {signUpRequest} from '../../../redux/ducks/authorization/slice';
+import {useAppDispatch} from '../../../redux/store';
 
 export const AuthorizationSignUp: React.FC = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   return (
     <View style={styles.container}>
       <View style={styles.formWrapper}>
@@ -38,7 +39,9 @@ export const AuthorizationSignUp: React.FC = () => {
             onChangeText={text => setPassword(text)}
           />
         </View>
-        <TouchableOpacity style={styles.Btn} onPress={() => axios.post('')}>
+        <TouchableOpacity
+          style={styles.Btn}
+          onPress={() => dispatch(signUpRequest({email, name, password}))}>
           <Text style={styles.btnText}>Ok</Text>
         </TouchableOpacity>
       </View>
