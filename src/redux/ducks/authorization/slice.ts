@@ -1,8 +1,13 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {SignIn, SignUp} from './types';
-
+interface User {
+  token: string;
+  name: string;
+  email: string;
+  id: number;
+}
 interface AuthorizationState {
-  user: Object | null;
+  user: User | null;
   authenticated: boolean;
   error: boolean;
   loading: boolean;
@@ -19,8 +24,8 @@ const authorizationSlice = createSlice({
   name: 'authorization',
   initialState,
   reducers: {
-    signInRequest: (state, args) => {
-      return {...state, loading: true, args};
+    signInLoading: state => {
+      return {...state, loading: true};
     },
     signInSuccess: (state, action: PayloadAction<SignIn>) => {
       return {
@@ -33,11 +38,20 @@ const authorizationSlice = createSlice({
     signInError: state => {
       state.error = true;
     },
-    signUpRequest: (state, args) => {
-      return {...state, loading: true, args};
+    signUpLoading: state => {
+      return {...state, loading: true};
     },
     signUpSuccess: (state, action: PayloadAction<SignUp>) => {
-      (state.user = action.payload), (state.authenticated = true);
+      return {
+        ...state,
+        user:{
+          token: action.payload.token,
+          name: action.payload.name,
+          email: action.payload.email,
+          id: action.payload.id,
+        },
+        authenticated: true
+      }
     },
     signUpError: state => {
       state.error = true;
@@ -47,10 +61,10 @@ const authorizationSlice = createSlice({
 
 export default authorizationSlice.reducer;
 export const {
-  signInRequest,
+  signInLoading,
   signInSuccess,
   signInError,
-  signUpRequest,
+  signUpLoading,
   signUpSuccess,
   signUpError,
 } = authorizationSlice.actions;

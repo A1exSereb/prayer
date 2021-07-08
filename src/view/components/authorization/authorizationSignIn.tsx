@@ -7,7 +7,7 @@ import {
   Text,
 } from 'react-native';
 import {useSelector} from 'react-redux';
-import {signInRequest} from '../../../redux/ducks/authorization/slice';
+import {signInRequest} from '../../../redux/sagas/thunk';
 import {useAppDispatch} from '../../../redux/store';
 import {RootState} from '../../../redux/rootReducer';
 
@@ -45,7 +45,9 @@ export const AuthorizationSignIn: React.FC = ({navigation}) => {
         <View style={styles.btnContainer}>
           <TouchableOpacity
             style={styles.signInBtn}
-            onPress={() => dispatch(signInRequest({email, password}))}>
+            onPress={() =>
+              dispatch({type: 'SIGN_IN_REQUEST', payload: {email, password}})
+            }>
             <Text style={styles.signInText}>Sign In</Text>
           </TouchableOpacity>
           <TouchableOpacity

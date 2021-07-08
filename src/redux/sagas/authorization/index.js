@@ -1,7 +1,8 @@
 import {takeLeading} from '@redux-saga/core/effects';
-import {signInRequest, signUpRequest} from '../../ducks/authorization/slice';
+import {takeEvery} from 'redux-saga/effects';
+import {signInRequest, signUpRequest} from '../thunk';
 import {signInWorker, signUpWorker} from './worker';
 export function* watchAuthorizationSaga() {
-  yield takeLeading(signInRequest, signInWorker);
-  yield takeLeading(signUpRequest, signUpWorker);
+  yield takeEvery('SIGN_IN_REQUEST', signInWorker);
+  yield takeEvery('SIGN_UP_REQUEST', signUpWorker);
 }

@@ -1,24 +1,30 @@
-import {BASE_URL, signin} from '../../utils/urls';
+import {BASE_URL, signin, signup} from '../../utils/urls';
 import axios from 'axios';
 
 export const Api = {
-  async signUp({email, password, name}) {
+  async signUp(payload) { 
+    console.log('name', payload.name);
+    console.log('email', payload.email);
+    console.log('password', payload.password);
     const request = await axios({
       method: 'post',
-      url: `${BASE_URL}${signin}`,
+      url: `${BASE_URL}${signup}`,
       headers: {
         'Content-type': 'application/json',
       },
       data: {
-        email: email,
-        password: password,
-        name: name,
+        email: payload.email,
+        password: payload.password,
+        name: payload.name,
       },
     });
 
+    console.log('request', request);
     return request.data;
   },
-  async signIn({email, password}) {
+  async signIn(payload) {
+    console.log('email', payload.email);
+    console.log('password', payload.password);
     const request = await axios({
       method: 'post',
       url: `${BASE_URL}${signin}`,
@@ -26,8 +32,8 @@ export const Api = {
         'Content-type': 'application/json',
       },
       data: {
-        email: email,
-        password: password,
+        email: payload.email,
+        password: payload.password,
       },
     });
 

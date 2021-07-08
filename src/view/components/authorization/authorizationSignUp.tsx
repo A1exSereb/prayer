@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, {useState} from 'react';
 import {
   View,
@@ -7,7 +6,6 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
-import {signUpRequest} from '../../../redux/ducks/authorization/slice';
 import {useAppDispatch} from '../../../redux/store';
 
 export const AuthorizationSignUp: React.FC = () => {
@@ -41,7 +39,12 @@ export const AuthorizationSignUp: React.FC = () => {
         </View>
         <TouchableOpacity
           style={styles.Btn}
-          onPress={() => dispatch(signUpRequest({email, name, password}))}>
+          onPress={() =>
+            dispatch({
+              type: 'SIGN_UP_REQUEST',
+              payload: {email, password, name},
+            })
+          }>
           <Text style={styles.btnText}>Ok</Text>
         </TouchableOpacity>
       </View>
