@@ -6,53 +6,48 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
-import {useSelector} from 'react-redux';
 import {useAppDispatch} from '../../../redux/store';
-import {RootState} from '../../../redux/rootReducer';
 
-export const AuthorizationSignIn: React.FC = ({navigation}) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export const ModalColumn: React.FC = ({navigation}) => {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const dispatch = useAppDispatch();
-  const {loading} = useSelector((state: RootState) => state.authorization);
-  if (loading) {
-    return (
-      <View style={styles.container}>
-        <Text>Loading...</Text>
-      </View>
-    );
-  }
+
   return (
     <View style={styles.container}>
       <View style={styles.formWrapper}>
         <View style={styles.formRow}>
           <TextInput
             style={styles.textInput}
-            placeholder="Enter email"
+            placeholder="Enter title"
             placeholderTextColor="#000"
-            onChangeText={text => setEmail(text)}
+            onChangeText={text => setTitle(text)}
           />
         </View>
         <View style={styles.formRow}>
           <TextInput
             style={styles.textInput}
-            placeholder="Enter password"
+            placeholder="Enter description"
             placeholderTextColor="#000"
-            onChangeText={text => setPassword(text)}
+            onChangeText={text => setDescription(text)}
           />
         </View>
         <View style={styles.btnContainer}>
           <TouchableOpacity
             style={styles.signInBtn}
-            onPress={() =>
-              dispatch({type: 'SIGN_IN_REQUEST', payload: {email, password}})
-            }>
-            <Text style={styles.signInText}>Sign In</Text>
+            onPress={() => {
+              dispatch({
+                type: 'POST_COLUMN_REQUEST',
+                payload: {title, description},
+              });
+              navigation.goBack();
+            }}>
+            <Text style={styles.signInText}>Ok</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.signUpBtn}
-            onPress={() => navigation.navigate('SignUp')}>
-            <Text style={styles.signUpText}>Sign Up</Text>
+            style={styles.signInBtn}
+            onPress={() => navigation.goBack()}>
+            <Text style={styles.signInText}>Back</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -62,7 +57,7 @@ export const AuthorizationSignIn: React.FC = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
+    height: '60%',
     alignItems: 'center',
     justifyContent: 'center',
   },

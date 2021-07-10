@@ -1,8 +1,9 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import {Column} from '../components/columns/Column';
 import React from 'react';
-import {Image, StyleSheet} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {View} from 'react-native';
+import {ModalColumn} from '../components/modal/ModalColumn';
 import {AuthorizationSignIn} from '../components/authorization/AuthorizationSignIn';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/rootReducer';
@@ -36,7 +37,7 @@ export const AppNavigation = () => {
       <Stack.Screen
         name="Column"
         component={Column}
-        options={{
+        options={({navigation}) => ({
           title: 'My Desk',
           headerStyle: {
             height: 64,
@@ -50,13 +51,21 @@ export const AppNavigation = () => {
           },
           headerRight: () => (
             <View>
-              <Image
-                source={require('../assets/plus.jpg')}
-                style={styles.navigatorAddButton}
-              />
+              <TouchableOpacity
+                onPress={() => navigation.navigate('ModalColumn')}>
+                <Image
+                  source={require('../assets/plus.jpg')}
+                  style={styles.navigatorAddButton}
+                />
+              </TouchableOpacity>
             </View>
           ),
-        }}
+        })}
+      />
+      <Stack.Screen
+        name="ModalColumn"
+        component={ModalColumn}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );

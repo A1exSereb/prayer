@@ -12,8 +12,8 @@ import {Api} from './api';
 
 export function* signInWorker(action) {
   console.log('call signin');
-  yield call(signInLoading);
   try {
+    yield call(signInLoading);
     const data = yield call(Api.signIn, action.payload);
     AsyncStorage.setItem('token', data.token);
     yield put(signInSuccess(data));
@@ -23,8 +23,8 @@ export function* signInWorker(action) {
 }
 export function* signUpWorker(action) {
   console.log('call signup');
-  yield call(signUpLoading);
   try {
+    yield call(signUpLoading);
     const data = yield call(Api.signUp, action.payload);
     AsyncStorage.setItem('token', data.token);
     yield put(signUpSuccess(data));

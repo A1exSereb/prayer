@@ -11,5 +11,24 @@ export const Api = {
     });
   
     return request.data;
+  },
+  async postColumn(token, payload): Promise<any> {
+    console.log('api token postColumn', token);
+    console.log('api payload', payload);
+    const request = await axios({
+      method: 'post',
+      url: `${BASE_URL}${columns}`,
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        title: payload.title,
+        description: payload.description,
+      },
+    });
+    
+    console.log('request data', request.data);
+    return request.data;
   }
 };

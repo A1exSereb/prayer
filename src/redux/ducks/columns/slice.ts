@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {LoadColumn} from './types';
+import {LoadColumn, PostColumn} from './types';
 
 interface ColumnState {
   loading: boolean;
@@ -22,9 +22,6 @@ const columnSlice = createSlice({
   name: 'column',
   initialState,
   reducers: {
-    loadColumnRequest: state => {
-      return state;
-    },
     loadColumnSuccess: (state, action: PayloadAction<Array<LoadColumn>>) => {
       return {
         ...state,
@@ -39,9 +36,33 @@ const columnSlice = createSlice({
         error: true,
       };
     },
+    postColumnSuccess: (
+      state,
+      action: PayloadAction<PostColumn>,
+    ): ColumnState => {
+      return {
+        ...state,
+        columns: state.columns.concat({
+          id: action.payload.id,
+          description: action.payload.description,
+          userId: action.payload.user,
+          title: action.payload.title,
+        }),
+      };
+    },
+    postColumnError: state => {
+      return {
+        ...state,
+        error: true,
+      };
+    },
   },
 });
 
 export default columnSlice.reducer;
-export const {loadColumnSuccess, loadColumnRequest, loadColumnError} =
-  columnSlice.actions;
+export const {
+  loadColumnSuccess,
+  loadColumnError,
+  postColumnSuccess,
+  postColumnError,
+} = columnSlice.actions;

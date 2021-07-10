@@ -1,28 +1,38 @@
 import React, {useEffect} from 'react';
-import {Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {useSelector} from 'react-redux';
-import {loadColumnRequest} from '../../../redux/ducks/columns/slice';
 import {RootState} from '../../../redux/rootReducer';
 import {useAppDispatch} from '../../../redux/store';
-export const Column: JSX.Element = () => {
+export const Column: JSX.Element = ({navigation}) => {
   const dispatch = useAppDispatch();
   const {columns, loading} = useSelector((state: RootState) => state.column);
   useEffect(() => {
-    dispatch(loadColumnRequest());
+    dispatch({type: 'LOAD_COLUMN_REQUEST'});
   }, [dispatch]);
+  console.log('columns', columns);
   if (loading) {
-    <ScrollView style={styles.section}>
-      <Text>Loading...</Text>
-    </ScrollView>;
+    <View>
+      <ScrollView style={styles.section}>
+        <Text>Loading...</Text>
+      </ScrollView>
+    </View>
   }
   return (
-    <ScrollView style={styles.section}>
-      {columns.map(item => (
-        <TouchableOpacity style={styles.sectionItemContainer} key={item.id}>
-          <Text style={styles.sectionItemText}>{item.title}</Text>
-        </TouchableOpacity>
-      ))}
-    </ScrollView>
+    <View>
+      <ScrollView style={styles.section}>
+        {columns.map(item => (
+          <TouchableOpacity style={styles.sectionItemContainer} key={item.id}>
+            <Text style={styles.sectionItemText}>{item.title}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+    </View>
   );
 };
 
@@ -30,6 +40,7 @@ const styles = StyleSheet.create({
   section: {
     padding: 15,
     backgroundColor: '#fff',
+    height: '100%',
   },
   sectionItemContainer: {
     width: '100%',

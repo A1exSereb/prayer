@@ -1,7 +1,7 @@
 import {takeLeading} from '@redux-saga/core/effects';
-import {loadColumnRequest} from '../../ducks/columns/slice';
-import {loadColumnWorker} from './worker';
+import {loadColumnWorker, postColumnWorker} from './worker';
 
 export function* watchColumnSaga() {
-  yield takeLeading(loadColumnRequest, loadColumnWorker);
+  yield takeLeading('LOAD_COLUMN_REQUEST', loadColumnWorker);
+  yield takeLeading('POST_COLUMN_REQUEST', postColumnWorker);
 }
