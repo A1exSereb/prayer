@@ -21,13 +21,16 @@ export const Column: JSX.Element = ({navigation}) => {
       <ScrollView style={styles.section}>
         <Text>Loading...</Text>
       </ScrollView>
-    </View>
+    </View>;
   }
   return (
     <View>
       <ScrollView style={styles.section}>
         {columns.map(item => (
-          <TouchableOpacity style={styles.sectionItemContainer} key={item.id}>
+          <TouchableOpacity
+            style={styles.sectionItemContainer}
+            key={item.id}
+            onPress={() => navigation.navigate('Prayer', {title: item.title})}>
             <Text style={styles.sectionItemText}>{item.title}</Text>
           </TouchableOpacity>
         ))}

@@ -8,6 +8,7 @@ import {AuthorizationSignIn} from '../components/authorization/AuthorizationSign
 import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/rootReducer';
 import {AuthorizationSignUp} from '../components/authorization/AuthorizationSignUp';
+import {Prayer} from '../components/prayers/Prayer';
 
 const Stack = createStackNavigator();
 
@@ -66,6 +67,22 @@ export const AppNavigation = () => {
         name="ModalColumn"
         component={ModalColumn}
         options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Prayer"
+        component={Prayer}
+        options={({route}) => ({
+          title: route.params.title,
+          headerTitleStyle: {
+            marginRight: '20%',
+            textAlign: 'center',
+            flex: 1,
+          },
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+        })}
       />
     </Stack.Navigator>
   );
