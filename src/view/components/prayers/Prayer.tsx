@@ -1,6 +1,6 @@
 import React from 'react';
-import {ColumnTabs} from '../../navigation/ColumnTabs';
+import {PrayerTabs} from '../../navigation/PrayerTabs';
 
 export const Prayer = () => {
-  return <ColumnTabs />;
+  return <PrayerTabs />;
 };

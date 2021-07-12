@@ -37,6 +37,8 @@ export const AuthorizationSignIn: React.FC = ({navigation}) => {
           <TextInput
             style={styles.textInput}
             placeholder="Enter password"
+            value={password}
+            secureTextEntry
             placeholderTextColor="#000"
             onChangeText={text => setPassword(text)}
           />

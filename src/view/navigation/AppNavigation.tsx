@@ -77,7 +77,9 @@ export const AppNavigation = () => {
             marginRight: '20%',
             textAlign: 'center',
             flex: 1,
+            fontSize: 17,
           },
+          headerTintColor: '#514D47',
           headerStyle: {
             elevation: 0,
             shadowOpacity: 0,

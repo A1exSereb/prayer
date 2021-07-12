@@ -2,10 +2,11 @@ import React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {Subscribed} from '../components/prayers/Subscribed';
 import {MyPrayers} from '../components/prayers/MyPrayers';
+import {Text, View} from 'react-native';
 
 const Tab = createMaterialTopTabNavigator();
 
-export const ColumnTabs = () => {
+export const PrayerTabs = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -22,12 +23,14 @@ export const ColumnTabs = () => {
           fontSize: 13,
         },
       }}>
-      <Tab.Screen name="MyPrayers" component={MyPrayers} />
       <Tab.Screen
-        name="Subscribed"
-        component={Subscribed}
-        options={{tabBarBadge: 3}}
+        name="MyPrayers"
+        component={MyPrayers}
+        options={{
+          title: 'My prayers',
+        }}
       />
+      <Tab.Screen name="Subscribed" component={Subscribed} />
     </Tab.Navigator>
   );
 };

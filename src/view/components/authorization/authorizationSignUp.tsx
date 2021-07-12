@@ -33,6 +33,8 @@ export const AuthorizationSignUp: React.FC = () => {
         <View style={styles.formRow}>
           <TextInput
             style={styles.textInput}
+            value={password}
+            secureTextEntry
             placeholder="Enter password"
             onChangeText={text => setPassword(text)}
           />

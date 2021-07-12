@@ -7,15 +7,20 @@ import {
   View,
 } from 'react-native';
 import {useSelector} from 'react-redux';
-import {RootState} from '../../../redux/rootReducer';
+import {column} from '../../../redux/ducks/columns/selectors';
 import {useAppDispatch} from '../../../redux/store';
+import {Error} from '../error/Error';
 export const Column: JSX.Element = ({navigation}) => {
   const dispatch = useAppDispatch();
-  const {columns, loading} = useSelector((state: RootState) => state.column);
+  const {columns, loading, error} = useSelector(column);
   useEffect(() => {
     dispatch({type: 'LOAD_COLUMN_REQUEST'});
+    dispatch({type: 'LOAD_PRAYER_REQUEST'});
   }, [dispatch]);
   console.log('columns', columns);
+  if (error) {
+    <Error />;
+  }
   if (loading) {
     <View>
       <ScrollView style={styles.section}>
