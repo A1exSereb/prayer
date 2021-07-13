@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {useAppDispatch} from '../../../redux/store';
+import {useAppDispatch} from '../../../store/store';
 
 export const Input = ({
   placeholder,
