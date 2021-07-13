@@ -35,7 +35,12 @@ export const MyDesk: JSX.Element = ({navigation}) => {
           <TouchableOpacity
             style={styles.sectionItemContainer}
             key={item.id}
-            onPress={() => navigation.navigate('Prayer', {title: item.title})}>
+            onPress={() =>
+              navigation.navigate('PrayerTabs', {
+                title: item.title,
+                columnId: item.id,
+              })
+            }>
             <Text style={styles.sectionItemText}>{item.title}</Text>
           </TouchableOpacity>
         ))}

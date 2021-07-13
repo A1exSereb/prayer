@@ -4,7 +4,7 @@ import React from 'react';
 import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {View} from 'react-native';
 import {ModalMyDesk} from './screens/ModalMyDesk';
-import {Prayer} from './screens/Prayer';
+import {PrayerTabs} from './tabs/PrayerTabs';
 
 const Stack = createStackNavigator();
 
@@ -45,8 +45,8 @@ export const UserNavigations = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="Prayer"
-        component={Prayer}
+        name="PrayerTabs"
+        component={PrayerTabs}
         options={({route}) => ({
           title: route.params.title,
           headerTitleStyle: {

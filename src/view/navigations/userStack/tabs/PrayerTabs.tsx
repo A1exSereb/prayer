@@ -1,11 +1,11 @@
 import React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {Subscribed} from './tabs/Subscribed';
-import {MyPrayers} from './tabs/MyPrayers';
+import {Subscribed} from '../screens/Subscribed';
+import {MyPrayers} from '../screens/MyPrayers';
 
 const Tab = createMaterialTopTabNavigator();
 
-export const PrayerTabs = () => {
+export const PrayerTabs = ({route}) => {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -25,6 +25,9 @@ export const PrayerTabs = () => {
       <Tab.Screen
         name="MyPrayers"
         component={MyPrayers}
+        initialParams={{
+          columnId: route.params.columnId,}
+        }
         options={{
           title: 'My prayers',
         }}
