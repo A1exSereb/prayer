@@ -23,7 +23,7 @@ export const UserNavigations = () => {
           },
           headerTintColor: '#514D47',
           headerTitleStyle: {
-            marginLeft: 150,
+            marginLeft: '50%',
             fontSize: 17,
           },
           headerRight: () => (
@@ -31,7 +31,7 @@ export const UserNavigations = () => {
               <TouchableOpacity
                 onPress={() => navigation.navigate('ModalMyDesk')}>
                 <Image
-                  source={require('../../assets/plus.jpg')}
+                  source={require('../../../assets/plus.jpg')}
                   style={styles.navigatorAddButton}
                 />
               </TouchableOpacity>
@@ -50,9 +50,8 @@ export const UserNavigations = () => {
         options={({route}) => ({
           title: route.params.title,
           headerTitleStyle: {
-            marginRight: '20%',
-            textAlign: 'center',
-            flex: 1,
+            marginRight: '50%',
+            marginLeft: 'auto',
             fontSize: 17,
           },
           headerTintColor: '#514D47',

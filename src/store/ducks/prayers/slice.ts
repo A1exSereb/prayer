@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {LoadPrayer} from './types';
+import {LoadPrayer, PostPrayer} from './types';
 
 interface PrayerState {
   loading: boolean;
@@ -9,7 +9,7 @@ interface PrayerState {
     description: string | null;
     columnId: number;
     checked: boolean;
-    commentsIds: Array<number>;
+    commentsIds: Array<number | null>;
   }>;
   error: boolean;
 }
@@ -41,9 +41,34 @@ const prayerSlice = createSlice({
         error: true,
       };
     },
+    postPrayerSuccess: (state, action: PayloadAction<PostPrayer>) => {
+      return {
+        ...state,
+        prayer: state.prayer.concat({
+          title: action.payload.title,
+          description: action.payload.description,
+          checked: action.payload.checked,
+          id: action.payload.id,
+          columnId: action.payload.columnId,
+          commentsIds: [null],
+        }),
+      };
+    },
+    postPrayerError: state => {
+      return {
+        ...state,
+        loading: false,
+        error: true,
+      };
+    },
   },
 });
 
 export default prayerSlice.reducer;
-export const {getPrayerSuccess, getPrayerError, getPrayerLoading} =
-  prayerSlice.actions;
+export const {
+  getPrayerSuccess,
+  getPrayerError,
+  getPrayerLoading,
+  postPrayerSuccess,
+  postPrayerError,
+} = prayerSlice.actions;

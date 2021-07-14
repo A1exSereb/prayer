@@ -8,27 +8,33 @@ import {
   Image,
 } from 'react-native';
 import {useAppDispatch} from '../../../store/store';
-
+interface InputProps {
+  placeholder: string;
+  imageSource: string;
+  request: string;
+  parentId: number;
+}
 export const Input = ({
   placeholder,
   imageSource,
   request,
-}: {
-  placeholder: string;
-  imageSource: string;
-  request: string;
-}): React.Element => {
+  parentId,
+}: InputProps): React.Element => {
   const [input, setInput] = useState('');
   const dispatch = useAppDispatch();
-
+  console.log('image source', imageSource);
   return (
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
-          /* dispatch({type: request, payload: input}); */
+          dispatch({
+            type: request,
+            payload: {title: input, parentId},
+          });
           setInput('');
+          console.log('button pressed');
         }}>
-        <Image source={require('../../assets/plus.jpg')} style={styles.icon} />
+        <Image source={{uri: imageSource}} style={styles.icon} />
       </TouchableOpacity>
       <TextInput
         style={styles.input}

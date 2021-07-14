@@ -1,28 +1,22 @@
 import {BASE_URL, signin, signup, columns, prayers} from './urls';
 import axios from 'axios';
-interface SignUp {
-  name: string;
-  password: string;
-  email: string;
-}
-interface SignIn {
-  password: string;
-  email: string;
-}
-interface PostColumn {
-  title: string;
-  description: string;
-}
-interface PostPrayer {
-  title: string;
-  description: string;
-  checked: boolean;
-}
+import {
+  GetColumnPromise,
+  GetPrayerPromise,
+  PostColumn,
+  PostColumnPromise,
+  PostPrayer,
+  PostPrayerPromise,
+  SignIn,
+  SignInPromise,
+  SignUp,
+  SignUpPromise,
+} from './types';
+
 export const Api = {
-  async signUp(payload: SignUp) {
-    console.log('name', payload.name);
-    console.log('email', payload.email);
-    console.log('password', payload.password);
+  async signUp(payload: SignUp): Promise<SignUpPromise> {
+    const {email, password, name} = payload;
+
     const request = await axios({
       method: 'post',
       url: `${BASE_URL}${signup}`,
@@ -30,18 +24,18 @@ export const Api = {
         'Content-type': 'application/json',
       },
       data: {
-        email: payload.email,
-        password: payload.password,
-        name: payload.name,
+        email,
+        password,
+        name,
       },
     });
 
     console.log('request', request);
     return request.data;
   },
-  async signIn(payload: SignIn) {
-    console.log('email', payload.email);
-    console.log('password', payload.password);
+  async signIn(payload: SignIn): Promise<SignInPromise> {
+    const {email, password} = payload;
+
     const request = await axios({
       method: 'post',
       url: `${BASE_URL}${signin}`,
@@ -49,14 +43,14 @@ export const Api = {
         'Content-type': 'application/json',
       },
       data: {
-        email: payload.email,
-        password: payload.password,
+        email,
+        password,
       },
     });
 
     return request.data;
   },
-  async getColumn(token: string): Promise<any> {
+  async getColumn(token: string): Promise<Array<GetColumnPromise>> {
     console.log('api token', token);
     const request = await axios.get(`${BASE_URL}${columns}`, {
       headers: {
@@ -66,7 +60,10 @@ export const Api = {
 
     return request.data;
   },
-  async postColumn(token: string, payload: PostColumn): Promise<any> {
+  async postColumn(
+    token: string,
+    payload: PostColumn,
+  ): Promise<PostColumnPromise> {
     console.log('api token postColumn', token);
     console.log('api payload', payload);
     const request = await axios({
@@ -85,7 +82,7 @@ export const Api = {
     console.log('request data', request.data);
     return request.data;
   },
-  async getPrayer(token: string): Promise<any> {
+  async getPrayer(token: string): Promise<Array<GetPrayerPromise>> {
     console.log('api token', token);
     const request = await axios.get(`${BASE_URL}${prayers}`, {
       headers: {
@@ -95,24 +92,28 @@ export const Api = {
 
     return request.data;
   },
-  async postPrayer(token: string, payload: PostPrayer): Promise<any> {
-    console.log('api token postPrayer', token);
-    console.log('api payload', payload);
+  async postPrayer(
+    token: string,
+    payload: PostPrayer,
+  ): Promise<PostPrayerPromise> {
+    const {title, parentId} = payload;
+    console.log('parent_id', parentId);
+    console.log('title', title);
     const request = await axios({
       method: 'post',
-      url: `${BASE_URL}${prayers}`,
+      url: `${BASE_URL}${columns}/${parentId}${prayers}`,
       headers: {
         'Content-type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
       data: {
-        title: payload,
+        title,
         description: '',
         checked: false,
       },
     });
 
-    console.log('request data', request.data);
+    console.log('post prayer request', request.data);
     return request.data;
   },
 };
