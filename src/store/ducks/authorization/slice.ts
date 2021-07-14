@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {StoreSlice} from '../../../types/StoreSlice';
 import {SignIn, SignUp} from './types';
 interface User {
   token: string;
@@ -21,7 +22,7 @@ const initialState = {
 } as AuthorizationState;
 
 const authorizationSlice = createSlice({
-  name: 'authorization',
+  name: StoreSlice.Authorization,
   initialState,
   reducers: {
     signInLoading: state => {
@@ -44,14 +45,14 @@ const authorizationSlice = createSlice({
     signUpSuccess: (state, action: PayloadAction<SignUp>) => {
       return {
         ...state,
-        user:{
+        user: {
           token: action.payload.token,
           name: action.payload.name,
           email: action.payload.email,
           id: action.payload.id,
         },
-        authenticated: true
-      }
+        authenticated: true,
+      };
     },
     signUpError: state => {
       state.error = true;

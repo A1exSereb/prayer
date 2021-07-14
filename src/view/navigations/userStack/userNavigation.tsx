@@ -5,14 +5,15 @@ import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {View} from 'react-native';
 import {ModalMyDesk} from './screens/ModalMyDesk';
 import {PrayerTabs} from './tabs/PrayerTabs';
+import {AppRoutes} from '../../../types/AppRoutes';
 
 const Stack = createStackNavigator();
 
-export const UserNavigations = () => {
+export const UserNavigation = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="MyDesk"
+        name={AppRoutes.MyDesk}
         component={MyDesk}
         options={({navigation}) => ({
           title: 'My Desk',
@@ -40,12 +41,12 @@ export const UserNavigations = () => {
         })}
       />
       <Stack.Screen
-        name="ModalMyDesk"
+        name={AppRoutes.ModalMyDesk}
         component={ModalMyDesk}
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="PrayerTabs"
+        name={AppRoutes.PrayerTabs}
         component={PrayerTabs}
         options={({route}) => ({
           title: route.params.title,

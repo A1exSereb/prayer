@@ -9,6 +9,8 @@ import {
   postPrayerSuccess,
 } from '../../ducks/prayers/slice';
 import {Api} from '../../utils/service';
+import {getToken} from '../authorization/selectors';
+import {PostPrayer} from './types';
 
 // requests
 export const getPrayerRequest = () => ({type: 'GET_PRAYER_REQUEST'});
@@ -22,30 +24,23 @@ export const postPrayerRequest = (payload: {
 });
 
 // worker
-export function* getPrayerWorker() {
+export function* getPrayerWorker(): Generator {
   try {
-    const token = yield select(
-      (state: RootState) => state.authorization.user.token,
-    );
     yield getPrayerLoading();
-    console.log('token', token);
-    const data = yield call(Api.getPrayer, token);
+    const data = yield call(Api.getPrayer);
     yield put(getPrayerSuccess(data));
-    console.log('prayers', data);
   } catch {
     yield getPrayerError();
   }
 }
 
-export function* postPrayerWorker(action) {
+export function* postPrayerWorker(action: {
+  type: string;
+  payload: PostPrayer;
+}): Generator {
   try {
-    const token = yield select(
-      (state: RootState) => state.authorization.user.token,
-    );
-    console.log('post prayer worker');
-    const data = yield call(Api.postPrayer, token, action.payload);
+    const data = yield call(Api.postPrayer, action.payload);
     yield put(postPrayerSuccess(data));
-    console.log(data);
   } catch {
     yield put(postPrayerError());
   }

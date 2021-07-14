@@ -2,6 +2,7 @@ import React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {Subscribed} from '../screens/Subscribed';
 import {MyPrayers} from '../screens/MyPrayers';
+import {AppRoutes} from '../../../../types/AppRoutes';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -23,16 +24,16 @@ export const PrayerTabs = ({route}) => {
         },
       }}>
       <Tab.Screen
-        name="MyPrayers"
+        name={AppRoutes.MyPrayers}
         component={MyPrayers}
         initialParams={{
-          columnId: route.params.columnId,}
+          columnId: route.params.columnId}
         }
         options={{
           title: 'My prayers',
         }}
       />
-      <Tab.Screen name="Subscribed" component={Subscribed} />
+      <Tab.Screen name={AppRoutes.Subscribed} component={Subscribed} />
     </Tab.Navigator>
   );
 };

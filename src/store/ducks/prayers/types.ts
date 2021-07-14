@@ -8,9 +8,6 @@ export interface LoadPrayer {
 }
 
 export interface PostPrayer {
-  id: number;
   title: string;
-  description: string;
-  checked: boolean;
-  columnId: number;
+  parentId: number;
 }

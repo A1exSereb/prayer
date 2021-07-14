@@ -1,6 +1,7 @@
 import {put, call, select} from '@redux-saga/core/effects';
 import {takeLeading} from 'redux-saga/effects';
 import {RootState} from 'src/store/rootReducer';
+import {PostColumn, PostColumnPromise} from 'src/store/utils/types';
 import {
   getColumnError,
   getColumnSuccess,
@@ -25,13 +26,9 @@ export const postColumnRequest = (payload: {
 
 // worker
 
-export function* getColumnWorker() {
+export function* getColumnWorker(): Generator {
   try {
-    const token = yield select(
-      (state: RootState) => state.authorization.user.token,
-    );
-    console.log('token', token);
-    const data = yield call(Api.getColumn, token);
+    const data = yield call(Api.getColumn);
     yield put(getColumnSuccess(data));
     console.log(data);
   } catch {
@@ -39,13 +36,12 @@ export function* getColumnWorker() {
   }
 }
 
-export function* postColumnWorker(action) {
+export function* postColumnWorker(action: {
+  type: string;
+  payload: PostColumn;
+}): Generator {
   try {
-    const token = yield select(
-      (state: RootState) => state.authorization.user.token,
-    );
-    console.log('token', token);
-    const data = yield call(Api.postColumn, token, action.payload);
+    const data = yield call(Api.postColumn, action.payload);
     yield put(postColumnSuccess(data));
     console.log(data);
   } catch {

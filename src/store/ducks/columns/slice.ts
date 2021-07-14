@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {StoreSlice} from '../../../types/StoreSlice';
 import {LoadColumn, PostColumn} from './types';
 
 interface ColumnState {
@@ -19,7 +20,7 @@ const initialState = {
 } as ColumnState;
 
 const columnSlice = createSlice({
-  name: 'column',
+  name: StoreSlice.Column,
   initialState,
   reducers: {
     getColumnSuccess: (state, action: PayloadAction<Array<LoadColumn>>) => {

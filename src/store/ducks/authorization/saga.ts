@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {put, call, takeEvery} from '@redux-saga/core/effects';
+import {SignUpPromise} from 'src/store/utils/types';
 import {
   signInLoading,
   signInSuccess,
@@ -9,7 +10,7 @@ import {
   signUpError,
 } from '../../ducks/authorization/slice';
 import {Api} from '../../utils/service';
-import {SignUpRequest} from './types';
+import {SignIn, SignUp, SignUpRequest} from './types';
 
 // requests
 export const signInRequest = (payload: {email: string; password: string}) => ({
@@ -24,23 +25,24 @@ export const signUpRequest = (payload: SignUpRequest) => ({
 
 // worker
 
-export function* signInWorker(action: {}) {
+export function* signInWorker(action: {type: string; payload: SignIn}) {
   console.log('call signin');
   try {
     yield put(signInLoading());
     const data = yield call(Api.signIn, action.payload);
-    AsyncStorage.setItem('token', data.token);
     yield put(signInSuccess(data));
   } catch {
     yield put(signInError());
   }
 }
-export function* signUpWorker(action) {
+export function* signUpWorker(action: {
+  type: string;
+  payload: SignUp;
+}): Generator {
   console.log('call signup');
   try {
     yield put(signUpLoading());
     const data = yield call(Api.signUp, action.payload);
-    AsyncStorage.setItem('token', data.token);
     yield put(signUpSuccess(data));
   } catch {
     yield put(signUpError());

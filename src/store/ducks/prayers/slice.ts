@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {StoreSlice} from '../../../types/StoreSlice';
 import {LoadPrayer, PostPrayer} from './types';
 
 interface PrayerState {
@@ -21,7 +22,7 @@ const initialState = {
 } as PrayerState;
 
 const prayerSlice = createSlice({
-  name: 'prayer',
+  name: StoreSlice.Prayer,
   initialState,
   reducers: {
     getPrayerLoading: state => {
