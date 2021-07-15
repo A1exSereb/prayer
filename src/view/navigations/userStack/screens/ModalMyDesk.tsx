@@ -7,8 +7,11 @@ import {
   Text,
 } from 'react-native';
 import {useAppDispatch} from '../../../../store/store';
+import {ModalMyDeskScreenNavigationProp} from '../userNavigation';
 
-export const ModalMyDesk: React.FC = ({navigation}) => {
+export const ModalMyDesk: React.FC<ModalMyDeskScreenNavigationProp> = ({
+  navigation,
+}: ModalMyDeskScreenNavigationProp) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const dispatch = useAppDispatch();

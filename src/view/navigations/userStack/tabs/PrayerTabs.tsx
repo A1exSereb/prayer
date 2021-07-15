@@ -3,10 +3,12 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import {Subscribed} from '../screens/Subscribed';
 import {MyPrayers} from '../screens/MyPrayers';
 import {AppRoutes} from '../../../../types/AppRoutes';
+import {MyDeskScreenNavigationProp} from '../userNavigation';
+import { RouteProp } from '@react-navigation/native';
 
-const Tab = createMaterialTopTabNavigator();
+const Tab = createMaterialTopTabNavigator<PrayerTabsProp>();
 
-export const PrayerTabs = ({route}) => {
+export const PrayerTabs = ({route}: MyDeskScreenNavigationProp) => {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -27,8 +29,8 @@ export const PrayerTabs = ({route}) => {
         name={AppRoutes.MyPrayers}
         component={MyPrayers}
         initialParams={{
-          columnId: route.params.columnId}
-        }
+          columnId: route.params.columnId,
+        }}
         options={{
           title: 'My prayers',
         }}
@@ -37,3 +39,17 @@ export const PrayerTabs = ({route}) => {
     </Tab.Navigator>
   );
 };
+
+export type PrayerTabsProp = {
+  PrayerTabs: {
+    screen: string;
+  };
+  [AppRoutes.MyPrayers]: {
+    columnId: number;
+  };
+  [AppRoutes.Subscribed]: undefined;
+};
+
+export interface PrayerTabsScreenNavigationProp {
+  route: RouteProp<PrayerTabsProp, AppRoutes.MyPrayers>;
+}

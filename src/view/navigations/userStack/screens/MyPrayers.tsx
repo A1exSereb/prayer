@@ -2,8 +2,11 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import Plus from '../../assets/plus.jpg';
 import {Input} from '../../../components/input/input';
+import {PrayerTabsScreenNavigationProp} from '../tabs/PrayerTabs';
 
-export const MyPrayers = ({route}): React.Element => {
+export const MyPrayers = ({
+  route,
+}: PrayerTabsScreenNavigationProp): JSX.Element => {
   const inputProps = {
     placeholder: 'Add a prayer...',
     imageSource: '../../../assets/plus.jpg',

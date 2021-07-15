@@ -6,16 +6,18 @@ import {View} from 'react-native';
 import {ModalMyDesk} from './screens/ModalMyDesk';
 import {PrayerTabs} from './tabs/PrayerTabs';
 import {AppRoutes} from '../../../types/AppRoutes';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {CompositeNavigationProp, RouteProp} from '@react-navigation/native';
 
-const Stack = createStackNavigator();
+const UserStack = createStackNavigator<UserNavigationParams>();
 
 export const UserNavigation = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
+    <UserStack.Navigator initialRouteName={AppRoutes.MyDesk}>
+      <UserStack.Screen
         name={AppRoutes.MyDesk}
         component={MyDesk}
-        options={({navigation}) => ({
+        options={({navigation}: MyDeskScreenNavigationProp) => ({
           title: 'My Desk',
           headerStyle: {
             height: 64,
@@ -30,7 +32,7 @@ export const UserNavigation = () => {
           headerRight: () => (
             <View>
               <TouchableOpacity
-                onPress={() => navigation.navigate('ModalMyDesk')}>
+                onPress={() => navigation.navigate(AppRoutes.ModalMyDesk)}>
                 <Image
                   source={require('../../../assets/plus.jpg')}
                   style={styles.navigatorAddButton}
@@ -40,19 +42,18 @@ export const UserNavigation = () => {
           ),
         })}
       />
-      <Stack.Screen
+      <UserStack.Screen
         name={AppRoutes.ModalMyDesk}
         component={ModalMyDesk}
         options={{headerShown: false}}
       />
-      <Stack.Screen
+      <UserStack.Screen
         name={AppRoutes.PrayerTabs}
         component={PrayerTabs}
         options={({route}) => ({
           title: route.params.title,
           headerTitleStyle: {
-            marginRight: '50%',
-            marginLeft: 'auto',
+            marginLeft: '40%',
             fontSize: 17,
           },
           headerTintColor: '#514D47',
@@ -62,10 +63,31 @@ export const UserNavigation = () => {
           },
         })}
       />
-    </Stack.Navigator>
+    </UserStack.Navigator>
   );
 };
 
+export type UserNavigationParams = {
+  UserNavigation: {
+    screen: string;
+  };
+  [AppRoutes.MyDesk]: undefined;
+  [AppRoutes.ModalMyDesk]: undefined;
+  [AppRoutes.PrayerTabs]: {
+    title: string;
+    columnId: number;
+  };
+};
+export interface MyDeskScreenNavigationProp {
+  navigation: CompositeNavigationProp<
+    StackNavigationProp<UserNavigationParams, AppRoutes.ModalMyDesk>,
+    StackNavigationProp<UserNavigationParams, AppRoutes.PrayerTabs>
+  >;
+  route: RouteProp<UserNavigationParams, AppRoutes.PrayerTabs>;
+}
+export interface ModalMyDeskScreenNavigationProp {
+  navigation: StackNavigationProp<UserNavigationParams, AppRoutes.MyDesk>;
+}
 const styles = StyleSheet.create({
   navigatorAddButton: {
     width: 16,

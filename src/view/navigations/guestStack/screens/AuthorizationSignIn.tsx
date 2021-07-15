@@ -9,8 +9,12 @@ import {
 import {useSelector} from 'react-redux';
 import {useAppDispatch} from '../../../../store/store';
 import {RootState} from '../../../../store/rootReducer';
+import {SignInScreenNavigationProp} from '../guestNavigation';
+import {AppRoutes} from '../../../../types/AppRoutes';
 
-export const AuthorizationSignIn: React.FC = ({navigation}) => {
+export const AuthorizationSignIn: React.FC<SignInScreenNavigationProp> = ({
+  navigation,
+}: SignInScreenNavigationProp) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useAppDispatch();
@@ -53,7 +57,7 @@ export const AuthorizationSignIn: React.FC = ({navigation}) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.signUpBtn}
-            onPress={() => navigation.navigate('SignUp')}>
+            onPress={() => navigation.navigate(AppRoutes.SignUp)}>
             <Text style={styles.signUpText}>Sign Up</Text>
           </TouchableOpacity>
         </View>
