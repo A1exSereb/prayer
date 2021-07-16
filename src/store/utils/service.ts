@@ -80,6 +80,7 @@ export const Api = {
   },
   async postPrayer(payload: PostPrayer): Promise<PostPrayerPromise> {
     const {title, parentId} = payload;
+    console.log('parent id', parentId);
     const request = await httpClient({
       method: 'post',
       url: `${columns}/${parentId}${prayers}`,

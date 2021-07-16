@@ -10,4 +10,8 @@ export interface LoadPrayer {
 export interface PostPrayer {
   title: string;
   parentId: number;
+  description: string;
+  checked: boolean;
+  id: number;
+  columnId: number;
 }

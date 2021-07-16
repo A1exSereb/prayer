@@ -53,7 +53,8 @@ export const UserNavigation = () => {
         options={({route}) => ({
           title: route.params.title,
           headerTitleStyle: {
-            marginLeft: '40%',
+            textAlign: 'center',
+            marginRight: '20%',
             fontSize: 17,
           },
           headerTintColor: '#514D47',

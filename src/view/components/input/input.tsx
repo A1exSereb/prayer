@@ -1,5 +1,6 @@
 import React from 'react';
 import {useState} from 'react';
+import Plus from '../../../assets/plus.jpg';
 import {
   View,
   TextInput,
@@ -27,14 +28,19 @@ export const Input = ({
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
-          dispatch({
-            type: request,
-            payload: {title: input, parentId},
-          });
+          if (input !== '') {
+            dispatch({
+              type: request,
+              payload: {title: input, parentId},
+            });
+          }
           setInput('');
           console.log('button pressed');
         }}>
-        <Image source={{uri: imageSource}} style={styles.icon} />
+        <Image
+          source={require('../../../assets/plus.jpg')}
+          style={styles.icon}
+        />
       </TouchableOpacity>
       <TextInput
         style={styles.input}

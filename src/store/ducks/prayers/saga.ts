@@ -23,6 +23,16 @@ export const postPrayerRequest = (payload: {
   payload,
 });
 
+export const changePrayerRequest = (payload:{
+  id: number;
+  title?: string;
+  description?: string;
+  checked?: boolean;
+}) => ({
+  type: 'CHANGE_PRAYER_REQUEST',
+  payload,
+})
+
 // worker
 export function* getPrayerWorker(): Generator {
   try {

@@ -7,10 +7,13 @@ import {
   View,
 } from 'react-native';
 import {useSelector} from 'react-redux';
+import {AppRoutes} from '../../../../types/AppRoutes';
+import {Loading} from '../../../components/loading/Loading';
 import {getColumn} from '../../../../store/ducks/columns/selectors';
 import {useAppDispatch} from '../../../../store/store';
 import {Error} from '../../../components/error/Error';
-export const MyDesk: JSX.Element = ({navigation}) => {
+import {MyDeskScreenNavigationProp} from '../userNavigation';
+export const MyDesk = ({navigation}: MyDeskScreenNavigationProp) => {
   const dispatch = useAppDispatch();
   const {columns, loading, error} = useSelector(getColumn);
   useEffect(() => {
@@ -22,11 +25,7 @@ export const MyDesk: JSX.Element = ({navigation}) => {
     <Error />;
   }
   if (loading) {
-    <View>
-      <ScrollView style={styles.section}>
-        <Text>Loading...</Text>
-      </ScrollView>
-    </View>;
+    <Loading />;
   }
   return (
     <View>
@@ -36,7 +35,7 @@ export const MyDesk: JSX.Element = ({navigation}) => {
             style={styles.sectionItemContainer}
             key={item.id}
             onPress={() =>
-              navigation.navigate('PrayerTabs', {
+              navigation.navigate(AppRoutes.PrayerTabs, {
                 title: item.title,
                 columnId: item.id,
               })
