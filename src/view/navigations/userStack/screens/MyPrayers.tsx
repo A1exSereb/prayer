@@ -76,10 +76,9 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: '#fff',
     height: 50,
-    marginBottom: 13,
+    margin: 13,
   },
   section: {
-    padding: 15,
     backgroundColor: '#fff',
     height: '100%',
   },

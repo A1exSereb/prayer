@@ -21,29 +21,64 @@ export const PrayerItem = ({
   const dispatch = useAppDispatch();
   return (
     <View
-      style={
-        type === 'checked'
-          ? styles.sectionItemContainerChecked
-          : styles.sectionItemContainer
-      }
-      key={id}>
-      <CheckBox
-        value={checked}
-        onChange={() => {
-          dispatch({
-            type: 'CHANGE_PRAYER_REQUEST',
-            payload: {id, title, checked: !checked, description},
-          });
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+      }}>
+      <View
+        style={{
+          ...(showDeletBtn ? {marginRight: 0} : {marginRight: 'auto'}),
+          ...(type === 'checked'
+            ? {
+                ...styles.sectionItemContainer,
+                ...styles.sectionItemContainerChecked,
+              }
+            : styles.sectionItemContainer),
         }}
-      />
-      <TouchableOpacity onLongPress={() => setShowDeletBtn(!showDeletBtn)}>
-        <Text
-          style={
-            checked ? styles.checkedSectionItemText : styles.sectionItemText
-          }>
-          {title}
-        </Text>
-      </TouchableOpacity>
+        key={id}>
+        <CheckBox
+          value={checked}
+          tintColors={{true: '#000', false: '#000'}}
+          onChange={() => {
+            dispatch({
+              type: 'CHANGE_PRAYER_REQUEST',
+              payload: {id, title, checked: !checked, description},
+            });
+          }}
+        />
+        <TouchableOpacity
+          style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}
+          onLongPress={() => setShowDeletBtn(!showDeletBtn)}>
+          <Text
+            style={
+              checked
+                ? {
+                    ...styles.sectionItemText,
+                    textDecorationLine: 'line-through',
+                  }
+                : styles.sectionItemText
+            }>
+            {title}
+          </Text>
+          <View style={styles.imageContainer}>
+            <View style={styles.flexContainer}>
+              <Image
+                style={styles.marginRight}
+                source={require('../../../assets/user.png')}
+              />
+              <Text style={styles.marginRight}>3</Text>
+            </View>
+            <View style={styles.flexContainer}>
+              <Image
+                style={styles.marginRight}
+                source={require('../../../assets/prayer_line.png')}
+              />
+              <Text style={styles.marginRight}>3233</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      </View>
       {showDeletBtn && (
         <TouchableOpacity
           onPress={() =>
@@ -61,32 +96,20 @@ export const PrayerItem = ({
 };
 
 const styles = StyleSheet.create({
-  imageText: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: -12,
-    bottom: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   sectionItemContainer: {
     display: 'flex',
+    width: '90%',
+    marginLeft: 'auto',
+    paddingLeft: 5,
+    paddingRight: 5,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    height: 68,
+    height: 60,
     borderBottomWidth: 1,
     borderBottomColor: '#E5E5E5',
   },
   sectionItemContainerChecked: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    height: 65,
-    borderBottomWidth: 1,
-    borderBottomColor: '#E5E5E5',
     borderTopWidth: 1,
     borderTopColor: '#E5E5E5',
   },
@@ -94,23 +117,32 @@ const styles = StyleSheet.create({
     padding: 15,
     fontSize: 17,
     color: '#514D47',
-  },
-  checkedSectionItemText: {
-    padding: 15,
-    fontSize: 17,
-    color: '#514D47',
-    textDecorationLine: 'line-through',
+    maxHeight: 55,
+    flex: 1,
   },
   deleteBtn: {
-    height: '100%',
+    height: 60,
     width: 80,
     backgroundColor: '#AC5253',
-    marginLeft: 'auto',
   },
   deleteBtnText: {
     alignSelf: 'center',
     marginTop: 'auto',
     marginBottom: 'auto',
     color: '#FFFFFF',
+  },
+  imageContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 25,
+  },
+  flexContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  marginRight: {
+    marginRight: 5,
   },
 });
