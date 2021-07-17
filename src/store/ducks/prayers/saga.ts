@@ -7,10 +7,11 @@ import {
   getPrayerLoading,
   postPrayerError,
   postPrayerSuccess,
+  changePrayerSuccess,
+  changePrayerError,
 } from '../../ducks/prayers/slice';
 import {Api} from '../../utils/service';
-import {getToken} from '../authorization/selectors';
-import {PostPrayer} from './types';
+import {ChangePrayerRequest, PostPrayer} from './types';
 
 // requests
 export const getPrayerRequest = () => ({type: 'GET_PRAYER_REQUEST'});
@@ -23,15 +24,10 @@ export const postPrayerRequest = (payload: {
   payload,
 });
 
-export const changePrayerRequest = (payload:{
-  id: number;
-  title?: string;
-  description?: string;
-  checked?: boolean;
-}) => ({
+export const changePrayerRequest = (payload: ChangePrayerRequest) => ({
   type: 'CHANGE_PRAYER_REQUEST',
   payload,
-})
+});
 
 // worker
 export function* getPrayerWorker(): Generator {
@@ -56,9 +52,24 @@ export function* postPrayerWorker(action: {
   }
 }
 
+export function* changePrayerWorker(action: {
+  type: string;
+  payload: ChangePrayerRequest;
+}): Generator {
+  try {
+    console.log('call generator');
+    const data = yield call(Api.changePrayer, action.payload);
+    yield console.log('change data', data);
+    yield put(changePrayerSuccess(data));
+  } catch {
+    yield put(changePrayerError());
+  }
+}
+
 // watcher
 
 export function* watchPrayerSaga() {
   yield takeLeading('GET_PRAYER_REQUEST', getPrayerWorker);
   yield takeEvery('POST_PRAYER_REQUEST', postPrayerWorker);
+  yield takeEvery('CHANGE_PRAYER_REQUEST', changePrayerWorker);
 }

@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {StoreSlice} from '../../../types/StoreSlice';
-import {LoadPrayer, PostPrayer} from './types';
+import {ChangePrayer, LoadPrayer, PostPrayer} from './types';
 
 interface PrayerState {
   loading: boolean;
@@ -62,6 +62,20 @@ const prayerSlice = createSlice({
         error: true,
       };
     },
+    changePrayerSuccess: (state, action: PayloadAction<ChangePrayer>) => {
+      return {
+        ...state,
+        prayer: state.prayer.map(item => {
+          return item.id === action.payload.id ? {...action.payload} : item;
+        }),
+      };
+    },
+    changePrayerError: state => {
+      return {
+        ...state,
+        error: true,
+      };
+    },
   },
 });
 
@@ -72,4 +86,6 @@ export const {
   getPrayerLoading,
   postPrayerSuccess,
   postPrayerError,
+  changePrayerSuccess,
+  changePrayerError,
 } = prayerSlice.actions;

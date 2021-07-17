@@ -1,20 +1,40 @@
-import React from 'react';
+import React, {useState} from 'react';
 import CheckBox from '@react-native-community/checkbox';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import PrayerLine from '../../../assets/prayer_line.png';
+import {useAppDispatch} from '../../../store/store';
 interface prayerItemProp {
   checked: boolean;
   id: number;
   title: string;
+  type?: string;
+  description: string | null;
 }
 export const PrayerItem = ({
   checked,
   id,
   title,
+  type,
+  description,
 }: prayerItemProp): JSX.Element => {
+  const dispatch = useAppDispatch();
   return (
-    <View style={styles.sectionItemContainer} key={id}>
-      <CheckBox value={checked} />
+    <View
+      style={
+        type === 'checked'
+          ? styles.sectionItemContainerChecked
+          : styles.sectionItemContainer
+      }
+      key={id}>
+      <CheckBox
+        value={checked}
+        onChange={() => {
+          dispatch({
+            type: 'CHANGE_PRAYER_REQUEST',
+            payload: {id, title, checked: !checked, description},
+          });}
+        }
+      />
       <Text
         style={
           checked ? styles.checkedSectionItemText : styles.sectionItemText
@@ -41,7 +61,19 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     height: 65,
+    borderBottomWidth: 1,
     borderBottomColor: '#E5E5E5',
+  },
+  sectionItemContainerChecked: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    height: 65,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E5E5',
+    borderTopWidth: 1,
+    borderTopColor: '#E5E5E5',
   },
   sectionItemText: {
     padding: 15,

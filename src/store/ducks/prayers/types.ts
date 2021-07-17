@@ -15,3 +15,19 @@ export interface PostPrayer {
   id: number;
   columnId: number;
 }
+
+export interface ChangePrayerRequest{
+  id: number;
+  title: string;
+  description: string;
+  checked: boolean;
+}
+
+export interface ChangePrayer{
+  title: string;
+  commentsIds: Array<number>;
+  description: string | null;
+  checked: boolean;
+  id: number;
+  columnId: number;
+}

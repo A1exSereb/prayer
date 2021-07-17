@@ -1,4 +1,4 @@
-import {BASE_URL, signin, signup, columns, prayers} from './urls';
+import {signin, signup, columns, prayers} from './urls';
 import {
   GetColumnPromise,
   GetPrayerPromise,
@@ -12,12 +12,8 @@ import {
   SignUpPromise,
 } from './types';
 import httpClient from './prayerInstance';
-import {
-  AxiosInstance,
-  AxiosPromise,
-  AxiosRequestConfig,
-  AxiosResponse,
-} from 'axios';
+import {AxiosResponse} from 'axios';
+import {ChangePrayerRequest, LoadPrayer} from '../ducks/prayers/types';
 
 export const Api = {
   async signUp(payload: SignUp): Promise<SignUpPromise> {
@@ -88,6 +84,25 @@ export const Api = {
         title,
         description: '',
         checked: false,
+      },
+    });
+    console.log('post prayer request', request.data);
+    return request.data;
+  },
+  async changePrayer(payload: ChangePrayerRequest): Promise<LoadPrayer> {
+    const {title, id, description, checked} = payload;
+    console.log('change prayer call');
+    console.log('id', id);
+    console.log('title', title);
+    console.log('description', description);
+    console.log('checked', checked);
+    const request = await httpClient({
+      method: 'put',
+      url: `${prayers}/${id}`,
+      data: {
+        title,
+        description: description === null || '' ? '' : description,
+        checked: checked,
       },
     });
     console.log('post prayer request', request.data);

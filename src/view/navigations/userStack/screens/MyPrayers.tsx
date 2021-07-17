@@ -40,14 +40,34 @@ export const MyPrayers = ({
       <View style={styles.input}>
         <Input {...inputProps} />
       </View>
-      <ScrollView style={{height: '100%', width: '100%'}}>
+      <ScrollView style={{width: '100%'}}>
         {uncheckedPrayers.map(item => (
-          <PrayerItem id={item.id} title={item.title} checked={item.checked} />
+          <PrayerItem
+            id={item.id}
+            title={item.title}
+            checked={item.checked}
+            description={item.description}
+          />
         ))}
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setShowCheckedPrayers(!showCheckedPrayers)}>
+          <Text style={styles.buttonText}>
+            {showCheckedPrayers ? 'HIDE' : 'SHOW'} ANSWERED PRAYERS
+          </Text>
+        </TouchableOpacity>
+        {showCheckedPrayers &&
+          checkedPrayers.map(item => (
+            <PrayerItem
+              id={item.id}
+              title={item.title}
+              checked={item.checked}
+              type={'checked'}
+              description={item.description}
+              key={item.id}
+            />
+          ))}
       </ScrollView>
-      <TouchableOpacity>
-        <Text />
-      </TouchableOpacity>
     </View>
   );
 };
@@ -56,32 +76,29 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: '#fff',
     height: 50,
-  },
-  imageText: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: -12,
-    bottom: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginBottom: 13,
   },
   section: {
     padding: 15,
     backgroundColor: '#fff',
     height: '100%',
   },
-  sectionItemContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    height: 65,
-    borderBottomColor: '#E5E5E5',
+  button: {
+    width: 209,
+    height: 30,
+    backgroundColor: '#BFB393',
+    borderRadius: 15,
+    marginTop: 21,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginBottom: 21,
   },
-  sectionItemText: {
-    padding: 15,
-    fontSize: 17,
-    color: '#514D47',
+  buttonText: {
+    fontSize: 12,
+    color: '#FFF',
+    textTransform: 'uppercase',
+    alignSelf: 'center',
+    marginTop: 'auto',
+    marginBottom: 'auto',
   },
 });
