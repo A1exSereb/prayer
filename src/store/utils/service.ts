@@ -76,7 +76,6 @@ export const Api = {
   },
   async postPrayer(payload: PostPrayer): Promise<PostPrayerPromise> {
     const {title, parentId} = payload;
-    console.log('parent id', parentId);
     const request = await httpClient({
       method: 'post',
       url: `${columns}/${parentId}${prayers}`,
@@ -91,11 +90,6 @@ export const Api = {
   },
   async changePrayer(payload: ChangePrayerRequest): Promise<LoadPrayer> {
     const {title, id, description, checked} = payload;
-    console.log('change prayer call');
-    console.log('id', id);
-    console.log('title', title);
-    console.log('description', description);
-    console.log('checked', checked);
     const request = await httpClient({
       method: 'put',
       url: `${prayers}/${id}`,
@@ -107,5 +101,11 @@ export const Api = {
     });
     console.log('post prayer request', request.data);
     return request.data;
+  },
+  async deletePrayer(id: number) {
+    await httpClient({
+      method: 'delete',
+      url: `${prayers}/${id}`,
+    });
   },
 };

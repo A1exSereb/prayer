@@ -9,6 +9,8 @@ import {
   postPrayerSuccess,
   changePrayerSuccess,
   changePrayerError,
+  deletePrayerSuccess,
+  deletePrayerError,
 } from '../../ducks/prayers/slice';
 import {Api} from '../../utils/service';
 import {ChangePrayerRequest, PostPrayer} from './types';
@@ -27,6 +29,11 @@ export const postPrayerRequest = (payload: {
 export const changePrayerRequest = (payload: ChangePrayerRequest) => ({
   type: 'CHANGE_PRAYER_REQUEST',
   payload,
+});
+
+export const deletePrayerRequest = (id: number) => ({
+  type: 'DELETE_PRAYER_REQUEST',
+  id,
 });
 
 // worker
@@ -57,7 +64,6 @@ export function* changePrayerWorker(action: {
   payload: ChangePrayerRequest;
 }): Generator {
   try {
-    console.log('call generator');
     const data = yield call(Api.changePrayer, action.payload);
     yield console.log('change data', data);
     yield put(changePrayerSuccess(data));
@@ -66,10 +72,22 @@ export function* changePrayerWorker(action: {
   }
 }
 
+export function* deletePrayerWorker(action: {
+  type: string;
+  id: number;
+}): Generator {
+  try {
+    yield call(Api.deletePrayer, action.id);
+    yield put(deletePrayerSuccess(action.id));
+  } catch {
+    yield put(deletePrayerError());
+  }
+}
 // watcher
 
 export function* watchPrayerSaga() {
   yield takeLeading('GET_PRAYER_REQUEST', getPrayerWorker);
   yield takeEvery('POST_PRAYER_REQUEST', postPrayerWorker);
   yield takeEvery('CHANGE_PRAYER_REQUEST', changePrayerWorker);
+  yield takeEvery('DELETE_PRAYER_REQUEST', deletePrayerWorker);
 }

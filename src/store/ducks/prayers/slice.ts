@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {StoreSlice} from '../../../types/StoreSlice';
-import {ChangePrayer, LoadPrayer, PostPrayer} from './types';
+import {ChangePrayer, DeletePrayer, LoadPrayer, PostPrayer} from './types';
 
 interface PrayerState {
   loading: boolean;
@@ -76,6 +76,18 @@ const prayerSlice = createSlice({
         error: true,
       };
     },
+    deletePrayerSuccess: (state, action: PayloadAction<number>) => {
+      return{
+        ...state,
+        prayer: state.prayer.filter(item => item.id !== action.payload),
+      }
+    },
+    deletePrayerError: state =>{
+      return{
+        ...state,
+        error: true,
+      }
+    }
   },
 });
 
@@ -88,4 +100,6 @@ export const {
   postPrayerError,
   changePrayerSuccess,
   changePrayerError,
+  deletePrayerSuccess,
+  deletePrayerError,
 } = prayerSlice.actions;

@@ -16,14 +16,14 @@ export interface PostPrayer {
   columnId: number;
 }
 
-export interface ChangePrayerRequest{
+export interface ChangePrayerRequest {
   id: number;
   title: string;
   description: string;
   checked: boolean;
 }
 
-export interface ChangePrayer{
+export interface ChangePrayer {
   title: string;
   commentsIds: Array<number>;
   description: string | null;

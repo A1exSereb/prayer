@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import CheckBox from '@react-native-community/checkbox';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import PrayerLine from '../../../assets/prayer_line.png';
 import {useAppDispatch} from '../../../store/store';
 interface prayerItemProp {
@@ -17,6 +17,7 @@ export const PrayerItem = ({
   type,
   description,
 }: prayerItemProp): JSX.Element => {
+  const [showDeletBtn, setShowDeletBtn] = useState(false);
   const dispatch = useAppDispatch();
   return (
     <View
@@ -32,15 +33,29 @@ export const PrayerItem = ({
           dispatch({
             type: 'CHANGE_PRAYER_REQUEST',
             payload: {id, title, checked: !checked, description},
-          });}
-        }
+          });
+        }}
       />
-      <Text
-        style={
-          checked ? styles.checkedSectionItemText : styles.sectionItemText
-        }>
-        {title}
-      </Text>
+      <TouchableOpacity onLongPress={() => setShowDeletBtn(!showDeletBtn)}>
+        <Text
+          style={
+            checked ? styles.checkedSectionItemText : styles.sectionItemText
+          }>
+          {title}
+        </Text>
+      </TouchableOpacity>
+      {showDeletBtn && (
+        <TouchableOpacity
+          onPress={() =>
+            dispatch({
+              type: 'DELETE_PRAYER_REQUEST',
+              id,
+            })
+          }
+          style={styles.deleteBtn}>
+          <Text style={styles.deleteBtnText}>Delete</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -60,7 +75,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    height: 65,
+    height: 68,
     borderBottomWidth: 1,
     borderBottomColor: '#E5E5E5',
   },
@@ -85,5 +100,17 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: '#514D47',
     textDecorationLine: 'line-through',
+  },
+  deleteBtn: {
+    height: '100%',
+    width: 80,
+    backgroundColor: '#AC5253',
+    marginLeft: 'auto',
+  },
+  deleteBtnText: {
+    alignSelf: 'center',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    color: '#FFFFFF',
   },
 });
