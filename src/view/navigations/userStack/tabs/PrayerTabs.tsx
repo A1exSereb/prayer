@@ -4,7 +4,9 @@ import {Subscribed} from '../screens/Subscribed';
 import {MyPrayers} from '../screens/MyPrayers';
 import {AppRoutes} from '../../../../types/AppRoutes';
 import {MyDeskScreenNavigationProp} from '../userNavigation';
-import { RouteProp } from '@react-navigation/native';
+import {RouteProp} from '@react-navigation/native';
+import {Text, View, StyleSheet} from 'react-native';
+import App from 'App';
 
 const Tab = createMaterialTopTabNavigator<PrayerTabsProp>();
 
@@ -35,7 +37,26 @@ export const PrayerTabs = ({route}: MyDeskScreenNavigationProp) => {
           title: 'My prayers',
         }}
       />
-      <Tab.Screen name={AppRoutes.Subscribed} component={Subscribed} />
+      <Tab.Screen
+        name={AppRoutes.Subscribed}
+        component={Subscribed}
+        options={{
+          tabBarLabel: ({focused}) => {
+            return (
+              <View>
+                <Text
+                  style={{
+                    ...styles.customLabel,
+                    ...(focused && {color: '#72A8BC'}),
+                  }}>
+                  {AppRoutes.Subscribed}
+                </Text>
+                <Text style={styles.tabBarBadge}>5</Text>
+              </View>
+            );
+          },
+        }}
+      />
     </Tab.Navigator>
   );
 };
@@ -53,3 +74,22 @@ export type PrayerTabsProp = {
 export interface PrayerTabsScreenNavigationProp {
   route: RouteProp<PrayerTabsProp, AppRoutes.MyPrayers>;
 }
+
+const styles = StyleSheet.create({
+  customLabel: {
+    fontSize: 13,
+    color: '#C8C8C8',
+    textTransform: 'uppercase',
+  },
+  tabBarBadge: {
+    position: 'absolute',
+    right: -30,
+    backgroundColor: 'red',
+    color: '#fff',
+    width: 20,
+    height: 20,
+    borderRadius: 20,
+    fontSize:13,
+    textAlign: 'center',
+  },
+});
