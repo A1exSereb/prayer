@@ -6,4 +6,5 @@ export enum AppRoutes {
   PrayerTabs = 'PrayerTabs',
   MyPrayers = 'MyPrayers',
   Subscribed = 'Subscribed',
+  PrayerDetails = 'PrayerDetails',
 }

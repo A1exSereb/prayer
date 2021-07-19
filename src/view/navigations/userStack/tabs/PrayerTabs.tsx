@@ -84,12 +84,12 @@ const styles = StyleSheet.create({
   tabBarBadge: {
     position: 'absolute',
     right: -30,
-    backgroundColor: 'red',
+    backgroundColor: '#AC5253',
     color: '#fff',
     width: 20,
     height: 20,
     borderRadius: 20,
-    fontSize:13,
+    fontSize: 13,
     textAlign: 'center',
   },
 });

@@ -8,6 +8,7 @@ import {PrayerTabs} from './tabs/PrayerTabs';
 import {AppRoutes} from '../../../types/AppRoutes';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {CompositeNavigationProp, RouteProp} from '@react-navigation/native';
+import { PrayerDetails } from './screens/PrayerDetails';
 
 const UserStack = createStackNavigator<UserNavigationParams>();
 
@@ -64,6 +65,10 @@ export const UserNavigation = () => {
           },
         })}
       />
+      <UserStack.Screen 
+        name={AppRoutes.PrayerDetails}
+        component={PrayerDetails}
+      />
     </UserStack.Navigator>
   );
 };
@@ -78,7 +83,11 @@ export type UserNavigationParams = {
     title: string;
     columnId: number;
   };
+  [AppRoutes.PrayerDetails]: undefined;
 };
+export interface PrayerTabsProp {
+  navigation: StackNavigationProp<UserNavigationParams, AppRoutes.MyDesk>;
+}
 export interface MyDeskScreenNavigationProp {
   navigation: CompositeNavigationProp<
     StackNavigationProp<UserNavigationParams, AppRoutes.ModalMyDesk>,

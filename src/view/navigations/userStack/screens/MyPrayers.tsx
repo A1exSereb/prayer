@@ -20,6 +20,7 @@ import {
 
 export const MyPrayers = ({
   route,
+  navigation
 }: PrayerTabsScreenNavigationProp): JSX.Element => {
   const [showCheckedPrayers, setShowCheckedPrayers] = useState(false);
   const checkedPrayers = useSelector(
@@ -47,6 +48,7 @@ export const MyPrayers = ({
             title={item.title}
             checked={item.checked}
             description={item.description}
+            navigation={navigation}
           />
         ))}
         <TouchableOpacity

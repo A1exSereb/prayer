@@ -3,12 +3,14 @@ import CheckBox from '@react-native-community/checkbox';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import PrayerLine from '../../../assets/prayer_line.png';
 import {useAppDispatch} from '../../../store/store';
+import {AppRoutes} from '../../../types/AppRoutes';
 interface prayerItemProp {
   checked: boolean;
   id: number;
   title: string;
   type?: string;
   description: string | null;
+  navigation: any;
 }
 export const PrayerItem = ({
   checked,
@@ -16,6 +18,7 @@ export const PrayerItem = ({
   title,
   type,
   description,
+  navigation,
 }: prayerItemProp): JSX.Element => {
   const [showDeletBtn, setShowDeletBtn] = useState(false);
   const dispatch = useAppDispatch();
@@ -48,7 +51,8 @@ export const PrayerItem = ({
           }}
         />
         <TouchableOpacity
-          style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}
+          style={styles.touchableConatiner}
+          onPress={() => navigation.navigate(AppRoutes.PrayerDetails)}
           onLongPress={() => setShowDeletBtn(!showDeletBtn)}>
           <Text
             style={
@@ -108,6 +112,11 @@ const styles = StyleSheet.create({
     height: 60,
     borderBottomWidth: 1,
     borderBottomColor: '#E5E5E5',
+  },
+  touchableConatiner: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   sectionItemContainerChecked: {
     borderTopWidth: 1,
