@@ -3,14 +3,14 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import {Subscribed} from '../screens/Subscribed';
 import {MyPrayers} from '../screens/MyPrayers';
 import {AppRoutes} from '../../../../types/AppRoutes';
-import {MyDeskScreenNavigationProp} from '../userNavigation';
+import {UserNavigationParams} from '../userNavigation';
 import {RouteProp} from '@react-navigation/native';
 import {Text, View, StyleSheet} from 'react-native';
-import App from 'App';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 const Tab = createMaterialTopTabNavigator<PrayerTabsProp>();
 
-export const PrayerTabs = ({route}: MyDeskScreenNavigationProp) => {
+export const PrayerTabs = ({route}: PrayerTabsScreenNavigationProp) => {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -72,6 +72,10 @@ export type PrayerTabsProp = {
 };
 
 export interface PrayerTabsScreenNavigationProp {
+  navigation: StackNavigationProp<
+    UserNavigationParams,
+    AppRoutes.PrayerDetails
+  >;
   route: RouteProp<PrayerTabsProp, AppRoutes.MyPrayers>;
 }
 

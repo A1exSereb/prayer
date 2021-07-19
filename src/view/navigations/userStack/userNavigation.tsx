@@ -8,7 +8,7 @@ import {PrayerTabs} from './tabs/PrayerTabs';
 import {AppRoutes} from '../../../types/AppRoutes';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {CompositeNavigationProp, RouteProp} from '@react-navigation/native';
-import { PrayerDetails } from './screens/PrayerDetails';
+import {PrayerDetails} from './screens/PrayerDetails';
 
 const UserStack = createStackNavigator<UserNavigationParams>();
 
@@ -24,6 +24,12 @@ export const UserNavigation = () => {
             height: 64,
             borderBottomColor: '#E5E5E5',
             borderBottomWidth: 1,
+          },
+          headerBackTitleStyle:{
+            width: 24,
+            height: 24,
+            marginRight: 18,
+            marginTop: 17,
           },
           headerTintColor: '#514D47',
           headerTitleStyle: {
@@ -45,7 +51,7 @@ export const UserNavigation = () => {
       />
       <UserStack.Screen
         name={AppRoutes.ModalMyDesk}
-        component={ModalMyDesk}
+        component={ModalMyDesk} 
         options={{headerShown: false}}
       />
       <UserStack.Screen
@@ -65,9 +71,25 @@ export const UserNavigation = () => {
           },
         })}
       />
-      <UserStack.Screen 
+      <UserStack.Screen
         name={AppRoutes.PrayerDetails}
         component={PrayerDetails}
+        options={{
+          title: '',
+          headerStyle:{
+            backgroundColor:'#BFB393',
+            height: '39%',
+          },
+          headerTintColor:'#FFFF',
+          headerRight: () => (
+            <View>
+              <Image
+                source={require('../../../assets/prayer_line.png')}
+                style={styles.navigatorPrayerHand}
+              />
+            </View>
+          ),
+        }}
       />
     </UserStack.Navigator>
   );
@@ -83,25 +105,38 @@ export type UserNavigationParams = {
     title: string;
     columnId: number;
   };
-  [AppRoutes.PrayerDetails]: undefined;
+  [AppRoutes.PrayerDetails]: {
+    prayerId: number;
+    title: string;
+  };
 };
 export interface PrayerTabsProp {
   navigation: StackNavigationProp<UserNavigationParams, AppRoutes.MyDesk>;
+}
+export interface PrayerDetailsProp {
+  route: RouteProp<UserNavigationParams, AppRoutes.PrayerDetails>;
 }
 export interface MyDeskScreenNavigationProp {
   navigation: CompositeNavigationProp<
     StackNavigationProp<UserNavigationParams, AppRoutes.ModalMyDesk>,
     StackNavigationProp<UserNavigationParams, AppRoutes.PrayerTabs>
   >;
-  route: RouteProp<UserNavigationParams, AppRoutes.PrayerTabs>;
+  route: RouteProp<UserNavigationParams, AppRoutes.MyDesk>;
 }
 export interface ModalMyDeskScreenNavigationProp {
   navigation: StackNavigationProp<UserNavigationParams, AppRoutes.MyDesk>;
 }
+
 const styles = StyleSheet.create({
   navigatorAddButton: {
     width: 16,
     height: 16,
     marginRight: 15,
   },
+  navigatorPrayerHand:{
+    width: 24,
+    height: 24,
+    marginRight: 18,
+    marginTop: 17,
+  }
 });

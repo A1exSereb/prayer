@@ -1,9 +1,11 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-export const PrayerDetails = () => {
+import {PrayerDetailsProp} from '../userNavigation';
+
+export const PrayerDetails = ({route}: PrayerDetailsProp): JSX.Element => {
   return (
     <View>
-      <Text>PrayerDetails</Text>
+      <Text>{`PrayerId: ${route.params.prayerId}, title:${route.params.title}`}</Text>
     </View>
   );
 };

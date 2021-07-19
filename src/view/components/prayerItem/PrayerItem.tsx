@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import CheckBox from '@react-native-community/checkbox';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
-import PrayerLine from '../../../assets/prayer_line.png';
 import {useAppDispatch} from '../../../store/store';
 import {AppRoutes} from '../../../types/AppRoutes';
 interface prayerItemProp {
@@ -52,7 +51,9 @@ export const PrayerItem = ({
         />
         <TouchableOpacity
           style={styles.touchableConatiner}
-          onPress={() => navigation.navigate(AppRoutes.PrayerDetails)}
+          onPress={() =>
+            navigation.navigate(AppRoutes.PrayerDetails, {prayerId: id, title})
+          }
           onLongPress={() => setShowDeletBtn(!showDeletBtn)}>
           <Text
             style={
