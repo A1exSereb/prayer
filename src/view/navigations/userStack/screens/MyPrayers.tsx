@@ -48,6 +48,7 @@ export const MyPrayers = ({
             title={item.title}
             checked={item.checked}
             description={item.description}
+            key={item.id}
             navigation={navigation}
           />
         ))}
@@ -66,6 +67,7 @@ export const MyPrayers = ({
               checked={item.checked}
               type={'checked'}
               description={item.description}
+              navigation={navigation}
               key={item.id}
             />
           ))}

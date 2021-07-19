@@ -1,7 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import {MyDesk} from './screens/MyDesk';
 import React from 'react';
-import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {View} from 'react-native';
 import {ModalMyDesk} from './screens/ModalMyDesk';
 import {PrayerTabs} from './tabs/PrayerTabs';
@@ -25,7 +25,7 @@ export const UserNavigation = () => {
             borderBottomColor: '#E5E5E5',
             borderBottomWidth: 1,
           },
-          headerBackTitleStyle:{
+          headerBackTitleStyle: {
             width: 24,
             height: 24,
             marginRight: 18,
@@ -51,7 +51,7 @@ export const UserNavigation = () => {
       />
       <UserStack.Screen
         name={AppRoutes.ModalMyDesk}
-        component={ModalMyDesk} 
+        component={ModalMyDesk}
         options={{headerShown: false}}
       />
       <UserStack.Screen
@@ -74,22 +74,29 @@ export const UserNavigation = () => {
       <UserStack.Screen
         name={AppRoutes.PrayerDetails}
         component={PrayerDetails}
-        options={{
-          title: '',
-          headerStyle:{
-            backgroundColor:'#BFB393',
-            height: '39%',
+        options={({route}) => ({
+          headerTitle: () => (
+            <Text style={styles.customTitle}>{route.params.title}</Text>
+          ),
+          headerStyle: {
+            backgroundColor: '#BFB393',
+            height: 130,
           },
-          headerTintColor:'#FFFF',
+          headerTintColor: '#FFFF',
+          headerLeftContainerStyle: {
+            width: 24,
+            height: 24,
+            marginTop: 17,
+          },
           headerRight: () => (
             <View>
               <Image
-                source={require('../../../assets/prayer_line.png')}
+                source={require('../../../assets/prayer_line_white.png')}
                 style={styles.navigatorPrayerHand}
               />
             </View>
           ),
-        }}
+        })}
       />
     </UserStack.Navigator>
   );
@@ -133,10 +140,20 @@ const styles = StyleSheet.create({
     height: 16,
     marginRight: 15,
   },
-  navigatorPrayerHand:{
-    width: 24,
-    height: 24,
-    marginRight: 18,
-    marginTop: 17,
-  }
+  navigatorPrayerHand: {
+    position: 'absolute',
+    top: 17,
+    right: 15,
+    width: 29,
+    height: 29,
+  },
+  customTitle: {
+    position: 'absolute',
+    top: -5,
+    left: -45,
+    fontSize: 17,
+    height: 46,
+    width: 340,
+    color: '#FFF',
+  },
 });

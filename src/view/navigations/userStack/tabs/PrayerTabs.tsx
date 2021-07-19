@@ -51,7 +51,9 @@ export const PrayerTabs = ({route}: PrayerTabsScreenNavigationProp) => {
                   }}>
                   {AppRoutes.Subscribed}
                 </Text>
-                <Text style={styles.tabBarBadge}>5</Text>
+                <View style={styles.tabBarBadge}>
+                  <Text style={styles.tabBarBadgeText}>5</Text>
+                </View>
               </View>
             );
           },
@@ -87,13 +89,19 @@ const styles = StyleSheet.create({
   },
   tabBarBadge: {
     position: 'absolute',
-    right: -30,
+    right: -20,
+    bottom: 0,
     backgroundColor: '#AC5253',
-    color: '#fff',
-    width: 20,
-    height: 20,
+    width: 16,
+    height: 16,
     borderRadius: 20,
-    fontSize: 13,
     textAlign: 'center',
+  },
+  tabBarBadgeText: {
+    color: '#fff',
+    textAlign: 'center',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    fontSize: 9,
   },
 });
