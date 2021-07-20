@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
+import {signUpRequest} from '../../../../store/ducks/authorization/saga';
 import {useAppDispatch} from '../../../../store/store';
 
 export const AuthorizationSignUp: React.FC = () => {
@@ -41,12 +42,7 @@ export const AuthorizationSignUp: React.FC = () => {
         </View>
         <TouchableOpacity
           style={styles.Btn}
-          onPress={() =>
-            dispatch({
-              type: 'SIGN_UP_REQUEST',
-              payload: {email, password, name},
-            })
-          }>
+          onPress={() => dispatch(signUpRequest({email, password, name}))}>
           <Text style={styles.btnText}>Ok</Text>
         </TouchableOpacity>
       </View>

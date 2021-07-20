@@ -11,6 +11,7 @@ import {useAppDispatch} from '../../../../store/store';
 import {RootState} from '../../../../store/rootReducer';
 import {SignInScreenNavigationProp} from '../guestNavigation';
 import {AppRoutes} from '../../../../types/AppRoutes';
+import {signInRequest} from '../../../../store/ducks/authorization/saga';
 
 export const AuthorizationSignIn: React.FC<SignInScreenNavigationProp> = ({
   navigation,
@@ -50,9 +51,7 @@ export const AuthorizationSignIn: React.FC<SignInScreenNavigationProp> = ({
         <View style={styles.btnContainer}>
           <TouchableOpacity
             style={styles.signInBtn}
-            onPress={() =>
-              dispatch({type: 'SIGN_IN_REQUEST', payload: {email, password}})
-            }>
+            onPress={() => dispatch(signInRequest({email, password}))}>
             <Text style={styles.signInText}>Sign In</Text>
           </TouchableOpacity>
           <TouchableOpacity

@@ -1,4 +1,5 @@
 import React from 'react';
+import dayjs from 'dayjs';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import {useSelector} from 'react-redux';
 import {CommentList} from '../../../components/commentList/commentList';
@@ -9,6 +10,7 @@ import {
 import {Members} from '../../../components/members/Members';
 import {PrayerDetailsProp} from '../userNavigation';
 import {Input} from '../../../components/input/input';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 export const PrayerDetails = ({route}: PrayerDetailsProp): JSX.Element => {
   const comments = useSelector(getCommentsById(route.params.prayerId));
@@ -21,19 +23,24 @@ export const PrayerDetails = ({route}: PrayerDetailsProp): JSX.Element => {
     imageSource: '../../../assets/message.jpg',
     request: 'POST_COMMENT_REQUEST',
   };
+  dayjs.extend(relativeTime);
+  const lastUpdate = comments[comments.length - 1].created;
+  const openDate = dayjs().format('MMM D YYYY');
   return (
     <View style={{height: '100%'}}>
       <ScrollView>
         <View style={styles.timeContainer}>
           <View style={styles.timeSeparator} />
-          <Text style={styles.timeText}>Last prayed 8 min ago</Text>
+          <Text style={styles.timeText}>
+            Last prayed {dayjs(lastUpdate).fromNow()}
+          </Text>
         </View>
         <View style={styles.infoContainer}>
           <View style={styles.infoItemContainer}>
-            <Text style={styles.itemHeaderDate}>July 1995</Text>
+            <Text style={styles.itemHeaderDate}>{openDate}</Text>
             <Text style={styles.itemDescription}>Date Added</Text>
             <Text style={(styles.itemDescription, {color: '#72A8BC'})}>
-              Opened for 4 days
+              Opened for {dayjs(openDate).fromNow()}
             </Text>
           </View>
           <View style={styles.infoItemContainer}>

@@ -3,11 +3,12 @@ import CheckBox from '@react-native-community/checkbox';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {useAppDispatch} from '../../../store/store';
 import {AppRoutes} from '../../../types/AppRoutes';
-import {
-  getCommentsById,
-  getCurrentUserCommentsCount,
-} from '../../../store/ducks/comments/selectors';
+import {getCommentsById} from '../../../store/ducks/comments/selectors';
 import {useSelector} from 'react-redux';
+import {
+  changePrayerRequest,
+  deletePrayerRequest,
+} from '../../../store/ducks/prayers/saga';
 interface prayerItemProp {
   checked: boolean;
   id: number;
@@ -49,10 +50,9 @@ export const PrayerItem = ({
           value={checked}
           tintColors={{true: '#000', false: '#000'}}
           onChange={() => {
-            dispatch({
-              type: 'CHANGE_PRAYER_REQUEST',
-              payload: {id, title, checked: !checked, description},
-            });
+            dispatch(
+              changePrayerRequest({id, title, checked: !checked, description}),
+            );
           }}
         />
         <TouchableOpacity
@@ -94,12 +94,7 @@ export const PrayerItem = ({
       </View>
       {showDeletBtn && (
         <TouchableOpacity
-          onPress={() =>
-            dispatch({
-              type: 'DELETE_PRAYER_REQUEST',
-              id,
-            })
-          }
+          onPress={() => dispatch(deletePrayerRequest(id))}
           style={styles.deleteBtn}>
           <Text style={styles.deleteBtnText}>Delete</Text>
         </TouchableOpacity>

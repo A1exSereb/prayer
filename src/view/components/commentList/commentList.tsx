@@ -1,4 +1,6 @@
+import dayjs from 'dayjs';
 import React from 'react';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import {
   View,
   Text,
@@ -12,6 +14,7 @@ interface CommentListProps {
   comments: Array<Comment>;
 }
 export const CommentList = ({comments}: CommentListProps) => {
+  dayjs.extend(relativeTime);
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -28,7 +31,9 @@ export const CommentList = ({comments}: CommentListProps) => {
               <View style={styles.commentTextContainer}>
                 <View style={styles.commentHeadersContainer}>
                   <Text style={styles.commentHeader}>{item.userId}</Text>
-                  <Text style={styles.commentDate}>{item.created}</Text>
+                  <Text style={styles.commentDate}>
+                    {dayjs(item.created).fromNow()}
+                  </Text>
                 </View>
                 <Text style={styles.commentText}>{item.body}</Text>
               </View>

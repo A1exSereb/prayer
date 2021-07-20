@@ -19,7 +19,7 @@ export interface PostPrayer {
 export interface ChangePrayerRequest {
   id: number;
   title: string;
-  description: string;
+  description: string | null;
   checked: boolean;
 }
 

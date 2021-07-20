@@ -13,13 +13,16 @@ import {getColumn} from '../../../../store/ducks/columns/selectors';
 import {useAppDispatch} from '../../../../store/store';
 import {Error} from '../../../components/error/Error';
 import {MyDeskScreenNavigationProp} from '../userNavigation';
+import {getColumnRequest} from '../../../../store/ducks/columns/saga';
+import {getPrayerRequest} from '../../../../store/ducks/prayers/saga';
+import {getCommentRequest} from '../../../../store/ducks/comments/saga';
 export const MyDesk = ({navigation}: MyDeskScreenNavigationProp) => {
   const dispatch = useAppDispatch();
   const {columns, loading, error} = useSelector(getColumn);
   useEffect(() => {
-    dispatch({type: 'GET_COLUMN_REQUEST'});
-    dispatch({type: 'GET_PRAYER_REQUEST'});
-    dispatch({type: 'GET_COMMENT_REQUEST'});
+    dispatch(getColumnRequest());
+    dispatch(getPrayerRequest());
+    dispatch(getCommentRequest());
   }, [dispatch]);
   console.log('columns', columns);
   if (error) {

@@ -16,7 +16,7 @@ export const getColumnRequest = () => ({
   type: 'GET_COLUMN_REQUEST',
 });
 
-export const postColumnRequest = (payload: number) => ({
+export const postColumnRequest = (payload: PostColumn) => ({
   type: 'POST_COLUMN_REQUEST',
   payload,
 });

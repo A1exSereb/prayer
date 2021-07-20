@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
+import {postColumnRequest} from '../../../../store/ducks/columns/saga';
 import {useAppDispatch} from '../../../../store/store';
 import {ModalMyDeskScreenNavigationProp} from '../userNavigation';
 
@@ -39,10 +40,7 @@ export const ModalMyDesk: React.FC<ModalMyDeskScreenNavigationProp> = ({
           <TouchableOpacity
             style={styles.signInBtn}
             onPress={() => {
-              dispatch({
-                type: 'POST_COLUMN_REQUEST',
-                payload: {title, description},
-              });
+              dispatch(postColumnRequest({title, description}));
               navigation.goBack();
             }}>
             <Text style={styles.signInText}>Ok</Text>
