@@ -5,6 +5,7 @@ import {
   GetPrayerPromise,
   PostColumn,
   PostColumnPromise,
+  PostCommentResponse,
   PostPrayer,
   PostPrayerPromise,
   SignIn,
@@ -114,6 +115,22 @@ export const Api = {
       url: `${comments}`,
     });
     console.log('comments request', request);
+    return request.data;
+  },
+  async postComment({
+    parentId,
+    title,
+  }: {
+    parentId: number;
+    title: string;
+  }): Promise<PostCommentResponse> {
+    console.log('call postComment');
+    const request: AxiosResponse<PostCommentResponse> = await httpClient({
+      method: 'post',
+      url: `${prayers}/${parentId}${comments}`,
+      data: {body: title},
+    });
+    console.log('comments post request', request.data);
     return request.data;
   },
 };

@@ -33,6 +33,7 @@ export function* getColumnWorker(): Generator {
   }
 }
 
+
 export function* postColumnWorker(action: {
   type: string;
   payload: PostColumn;

@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {PostCommentResponse} from '../../../store/utils/types';
 import {StoreSlice} from '../../../types/StoreSlice';
-import columnSlice from '../columns';
 export interface Comment {
   id: number;
   body: string;
@@ -36,8 +36,32 @@ const commentSlice = createSlice({
         error: true,
       };
     },
+    postCommentSuccess: (state, action: PayloadAction<PostCommentResponse>) => {
+      return {
+        ...state,
+        comment: state.comment.concat({
+          id: action.payload.id,
+          body: action.payload.body,
+          created: action.payload.created,
+          prayerId: action.payload.prayerId,
+          userId: action.payload.userId,
+          userName: action.payload.user.name,
+        }),
+      };
+    },
+    postCommentError: state => {
+      return {
+        ...state,
+        error: true,
+      };
+    },
   },
 });
 
 export default commentSlice.reducer;
-export const {getCommentSuccess, getCommentError} = commentSlice.actions;
+export const {
+  getCommentSuccess,
+  getCommentError,
+  postCommentSuccess,
+  postCommentError,
+} = commentSlice.actions;

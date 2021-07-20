@@ -22,7 +22,7 @@ export const PrayerDetails = ({route}: PrayerDetailsProp): JSX.Element => {
     request: 'POST_COMMENT_REQUEST',
   };
   return (
-    <View style={{height:'100%'}}>
+    <View style={{height: '100%'}}>
       <ScrollView>
         <View style={styles.timeContainer}>
           <View style={styles.timeSeparator} />
@@ -59,7 +59,9 @@ export const PrayerDetails = ({route}: PrayerDetailsProp): JSX.Element => {
             '../../../assets/user3.png',
           ]}
         />
-        <CommentList comments={comments} />
+        <View style={{marginBottom: 56}}>
+          <CommentList comments={comments} />
+        </View>
       </ScrollView>
       <View style={styles.input}>
         <Input {...inputProps} />

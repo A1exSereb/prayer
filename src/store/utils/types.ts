@@ -72,10 +72,32 @@ export interface PostPrayerPromise {
   };
 }
 
-export interface GetComment{
+export interface GetComment {
   id: number;
   body: string;
   created: string;
   prayerId: number | null;
+  userId: number;
+}
+
+export interface PostCommentResponse {
+  body: string;
+  card: {
+    id: number;
+    title: string;
+    description: string;
+    checked: boolean;
+    columnId: number;
+    commentsId: Array<number>;
+  };
+  user: {
+    id: number;
+    email: string;
+    name: string;
+    token: string;
+  };
+  id: number;
+  created: string;
+  prayerId: number;
   userId: number;
 }
