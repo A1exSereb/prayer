@@ -71,3 +71,11 @@ export interface PostPrayerPromise {
     userId: number;
   };
 }
+
+export interface GetComment{
+  id: number;
+  body: string;
+  created: string;
+  prayerId: number | null;
+  userId: number;
+}

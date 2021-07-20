@@ -81,6 +81,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     height: 50,
     margin: 13,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: '#E5E5E5',
+    borderRadius: 10,
+    alignItems: 'flex-start',
   },
   section: {
     backgroundColor: '#fff',

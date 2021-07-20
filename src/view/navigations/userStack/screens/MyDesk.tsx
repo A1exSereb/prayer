@@ -19,6 +19,7 @@ export const MyDesk = ({navigation}: MyDeskScreenNavigationProp) => {
   useEffect(() => {
     dispatch({type: 'GET_COLUMN_REQUEST'});
     dispatch({type: 'GET_PRAYER_REQUEST'});
+    dispatch({type: 'GET_COMMENT_REQUEST'});
   }, [dispatch]);
   console.log('columns', columns);
   if (error) {

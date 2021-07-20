@@ -4,3 +4,4 @@ export const columns = '/columns';
 export const signin = '/auth/sign-in';
 export const signup = '/auth/sign-up';
 export const prayers = '/prayers';
+export const comments = '/comments';

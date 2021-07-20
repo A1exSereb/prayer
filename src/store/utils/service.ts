@@ -1,6 +1,7 @@
-import {signin, signup, columns, prayers} from './urls';
+import {signin, signup, columns, prayers, comments} from './urls';
 import {
   GetColumnPromise,
+  GetComment,
   GetPrayerPromise,
   PostColumn,
   PostColumnPromise,
@@ -107,5 +108,12 @@ export const Api = {
       method: 'delete',
       url: `${prayers}/${id}`,
     });
+  },
+  async getComments(): Promise<Array<GetComment>> {
+    const request: AxiosResponse<Array<GetComment>> = await httpClient({
+      url: `${comments}`,
+    });
+    console.log('comments request', request);
+    return request.data;
   },
 };

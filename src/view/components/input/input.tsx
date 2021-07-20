@@ -57,13 +57,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignContent: 'center',
-    backgroundColor: '#fff',
-    borderStyle: 'solid',
-    borderWidth: 1,
-    height: 50,
-    borderColor: '#E5E5E5',
-    borderRadius: 10,
-    alignItems: 'flex-start',
   },
   icon: {
     margin: 13,
