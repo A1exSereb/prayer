@@ -1,12 +1,13 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {StoreSlice} from '../../../types/StoreSlice';
 import columnSlice from '../columns';
-interface Comment {
+export interface Comment {
   id: number;
   body: string;
   created: string;
   prayerId: number | null;
   userId: number;
+  userName: string | null;
 }
 interface CommentState {
   comment: Array<Comment>;

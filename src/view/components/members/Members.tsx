@@ -1,14 +1,14 @@
 import React from 'react';
 import {Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
 interface MembersProp {
-  users: Array<string>;
+  members: Array<string>;
 }
-export const Members = ({users}: MembersProp) => {
+export const Members = ({members}: MembersProp) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>members</Text>
       <View style={styles.imageContainer}>
-        {users.map(item => (
+        {members.map(item => (
           <Image style={styles.image} source={{uri: item}} />
         ))}
         <TouchableOpacity>

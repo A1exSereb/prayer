@@ -1,44 +1,69 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import {useSelector} from 'react-redux';
+import {CommentList} from '../../../components/commentList/commentList';
+import {
+  getCommentsById,
+  getCurrentUserCommentsCount,
+} from '../../../../store/ducks/comments/selectors';
 import {Members} from '../../../components/members/Members';
 import {PrayerDetailsProp} from '../userNavigation';
+import {Input} from '../../../components/input/input';
 
 export const PrayerDetails = ({route}: PrayerDetailsProp): JSX.Element => {
+  const comments = useSelector(getCommentsById(route.params.prayerId));
+  const userCommentsCount = useSelector(
+    getCurrentUserCommentsCount(route.params.prayerId),
+  );
+  const inputProps = {
+    placeholder: 'Add a comment...',
+    parentId: route.params.prayerId,
+    imageSource: '../../../assets/message.jpg',
+    request: 'POST_COMMENT_REQUEST',
+  };
   return (
-    <View>
-      <View style={styles.timeContainer}>
-        <View style={styles.timeSeparator} />
-        <Text style={styles.timeText}>Last prayed 8 min ago</Text>
+    <View style={{height:'100%'}}>
+      <ScrollView>
+        <View style={styles.timeContainer}>
+          <View style={styles.timeSeparator} />
+          <Text style={styles.timeText}>Last prayed 8 min ago</Text>
+        </View>
+        <View style={styles.infoContainer}>
+          <View style={styles.infoItemContainer}>
+            <Text style={styles.itemHeaderDate}>July 1995</Text>
+            <Text style={styles.itemDescription}>Date Added</Text>
+            <Text style={(styles.itemDescription, {color: '#72A8BC'})}>
+              Opened for 4 days
+            </Text>
+          </View>
+          <View style={styles.infoItemContainer}>
+            <Text style={styles.itemHeader}>{comments.length}</Text>
+            <Text style={styles.itemDescription}>Times Prayed Total</Text>
+          </View>
+          <View style={styles.infoItemContainer}>
+            <Text style={styles.itemHeader}>{userCommentsCount}</Text>
+            <Text style={styles.itemDescription}>Times Prayed by Me</Text>
+          </View>
+          <View style={styles.infoItemContainer}>
+            <Text style={styles.itemHeader}>
+              {comments.length - userCommentsCount}
+            </Text>
+            <Text style={styles.itemDescription}>Times Prayed by Others</Text>
+          </View>
+        </View>
+        <Members
+          members={[
+            '../../../assets/user.png',
+            '../../../assets/user1.png',
+            '../../../assets/user2.png',
+            '../../../assets/user3.png',
+          ]}
+        />
+        <CommentList comments={comments} />
+      </ScrollView>
+      <View style={styles.input}>
+        <Input {...inputProps} />
       </View>
-      <View style={styles.infoContainer}>
-        <View style={styles.infoItemContainer}>
-          <Text style={styles.itemHeaderDate}>July 1995</Text>
-          <Text style={styles.itemDescription}>Date Added</Text>
-          <Text style={(styles.itemDescription, {color: '#72A8BC'})}>
-            Opened for 4 days
-          </Text>
-        </View>
-        <View style={styles.infoItemContainer}>
-          <Text style={styles.itemHeader}>134</Text>
-          <Text style={styles.itemDescription}>Times Prayed Total</Text>
-        </View>
-        <View style={styles.infoItemContainer}>
-          <Text style={styles.itemHeader}>70</Text>
-          <Text style={styles.itemDescription}>Times Prayed by Me</Text>
-        </View>
-        <View style={styles.infoItemContainer}>
-          <Text style={styles.itemHeader}>99</Text>
-          <Text style={styles.itemDescription}>Times Prayed by Others</Text>
-        </View>
-      </View>
-      <Members
-        users={[
-          '../../../assets/user.png',
-          '../../../assets/user1.png',
-          '../../../assets/user2.png',
-          '../../../assets/user3.png',
-        ]}
-      />
     </View>
   );
 };
@@ -54,6 +79,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#E5E5E5',
+  },
+  input: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    backgroundColor: '#fff',
+    height: 56,
+    alignItems: 'flex-start',
   },
   timeSeparator: {
     height: 24,

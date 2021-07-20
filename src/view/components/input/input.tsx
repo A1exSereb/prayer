@@ -1,6 +1,6 @@
 import React from 'react';
 import {useState} from 'react';
-import Plus from '../../../assets/plus.jpg';
+import Plus from '../../../assets/message.jpg';
 import {
   View,
   TextInput,
@@ -37,10 +37,7 @@ export const Input = ({
           setInput('');
           console.log('button pressed');
         }}>
-        <Image
-          source={require('../../../assets/plus.jpg')}
-          style={styles.icon}
-        />
+        <Image source={{uri: imageSource}} style={styles.icon} />
       </TouchableOpacity>
       <TextInput
         style={styles.input}
@@ -64,7 +61,7 @@ const styles = StyleSheet.create({
     height: 24,
   },
   input: {
-    width: '80%',
+    width: '100%',
     height: '100%',
     fontSize: 17,
   },

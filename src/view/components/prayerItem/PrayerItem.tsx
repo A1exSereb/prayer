@@ -3,6 +3,11 @@ import CheckBox from '@react-native-community/checkbox';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {useAppDispatch} from '../../../store/store';
 import {AppRoutes} from '../../../types/AppRoutes';
+import {
+  getCommentsById,
+  getCurrentUserCommentsCount,
+} from '../../../store/ducks/comments/selectors';
+import {useSelector} from 'react-redux';
 interface prayerItemProp {
   checked: boolean;
   id: number;
@@ -20,6 +25,7 @@ export const PrayerItem = ({
   navigation,
 }: prayerItemProp): JSX.Element => {
   const [showDeletBtn, setShowDeletBtn] = useState(false);
+  const comments = useSelector(getCommentsById(id));
   const dispatch = useAppDispatch();
   return (
     <View
@@ -74,13 +80,15 @@ export const PrayerItem = ({
               />
               <Text style={styles.marginRight}>3</Text>
             </View>
-            <View style={styles.flexContainer}>
-              <Image
-                style={styles.marginRight}
-                source={require('../../../assets/prayer_line.png')}
-              />
-              <Text style={styles.marginRight}>3233</Text>
-            </View>
+            {comments.length > 0 && (
+              <View style={styles.flexContainer}>
+                <Image
+                  style={styles.marginRight}
+                  source={require('../../../assets/prayer_line.png')}
+                />
+                <Text style={styles.marginRight}>{comments.length}</Text>
+              </View>
+            )}
           </View>
         </TouchableOpacity>
       </View>
