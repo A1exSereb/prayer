@@ -1,15 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {StoreSlice} from '../../../types';
+import {Column, StoreSlice} from '../../../types';
 import {LoadColumn, PostColumn} from './types';
 
 interface ColumnState {
   loading: boolean;
-  columns: Array<{
-    id: number;
-    title: string;
-    description: string | null;
-    userId: number;
-  }>;
+  columns: Array<Column>;
   error: boolean;
 }
 
@@ -37,7 +32,7 @@ const columnSlice = createSlice({
         error: true,
       };
     },
-    postColumnSuccess: (
+    createColumnSuccess: (
       state,
       action: PayloadAction<PostColumn>,
     ): ColumnState => {
@@ -51,7 +46,7 @@ const columnSlice = createSlice({
         }),
       };
     },
-    postColumnError: state => {
+    createColumnError: state => {
       return {
         ...state,
         error: true,
@@ -64,6 +59,6 @@ export default columnSlice.reducer;
 export const {
   getColumnSuccess,
   getColumnError,
-  postColumnSuccess,
-  postColumnError,
+  createColumnSuccess,
+  createColumnError,
 } = columnSlice.actions;

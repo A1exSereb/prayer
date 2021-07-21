@@ -3,11 +3,11 @@ import {
   GetColumnPromise,
   GetComment,
   GetPrayerPromise,
-  PostColumn,
-  PostColumnPromise,
-  PostCommentResponse,
-  PostPrayer,
-  PostPrayerPromise,
+  CreateColumn,
+  CreateColumnPromise,
+  CreateCommentResponse,
+  CreatePrayer,
+  CreatePrayerPromise,
   SignIn,
   SignInPromise,
   SignUp,
@@ -46,14 +46,13 @@ export const Api = {
 
     return request.data;
   },
-  async postColumn(payload: PostColumn): Promise<PostColumnPromise> {
+  async createColumn(payload: CreateColumn): Promise<CreateColumnPromise> {
     const {title, description} = payload;
     const request = await httpClient.post(`${columns}`, {
       title,
       description,
     });
 
-    console.log('request data', request.data);
     return request.data;
   },
   async getPrayer(): Promise<Array<GetPrayerPromise>> {
@@ -61,7 +60,7 @@ export const Api = {
 
     return request.data;
   },
-  async postPrayer(payload: PostPrayer): Promise<PostPrayerPromise> {
+  async createPrayer(payload: CreatePrayer): Promise<CreatePrayerPromise> {
     const {title, parentId} = payload;
     const request = await httpClient.post(`${columns}/${parentId}${prayers}`, {
       title,
@@ -91,19 +90,17 @@ export const Api = {
     console.log('comments request', request);
     return request.data;
   },
-  async postComment({
+  async createComment({
     parentId,
     title,
   }: {
     parentId: number;
     title: string;
-  }): Promise<PostCommentResponse> {
-    console.log('call postComment');
-    const request: AxiosResponse<PostCommentResponse> = await httpClient.post(
+  }): Promise<CreateCommentResponse> {
+    const request: AxiosResponse<CreateCommentResponse> = await httpClient.post(
       `${prayers}/${parentId}${comments}`,
       {body: title},
     );
-    console.log('comments post request', request.data);
     return request.data;
   },
 };

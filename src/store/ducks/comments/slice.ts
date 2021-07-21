@@ -1,14 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {PostCommentResponse} from '../../../store/utils/types';
-import {StoreSlice} from '../../../types';
-export interface Comment {
-  id: number;
-  body: string;
-  created: string;
-  prayerId: number | null;
-  userId: number;
-  userName: string | null;
-}
+import {CreateCommentResponse} from '../../../store/utils/types';
+import {Comment, StoreSlice} from '../../../types';
+
 interface CommentState {
   comment: Array<Comment>;
   error: boolean;
@@ -36,7 +29,10 @@ const commentSlice = createSlice({
         error: true,
       };
     },
-    postCommentSuccess: (state, action: PayloadAction<PostCommentResponse>) => {
+    createCommentSuccess: (
+      state,
+      action: PayloadAction<CreateCommentResponse>,
+    ) => {
       return {
         ...state,
         comment: state.comment.concat({
@@ -49,7 +45,7 @@ const commentSlice = createSlice({
         }),
       };
     },
-    postCommentError: state => {
+    createCommentError: state => {
       return {
         ...state,
         error: true,
@@ -62,6 +58,6 @@ export default commentSlice.reducer;
 export const {
   getCommentSuccess,
   getCommentError,
-  postCommentSuccess,
-  postCommentError,
+  createCommentSuccess,
+  createCommentError,
 } = commentSlice.actions;

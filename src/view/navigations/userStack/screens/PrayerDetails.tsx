@@ -24,16 +24,17 @@ export const PrayerDetails = ({route}: PrayerDetailsProp): JSX.Element => {
     request: 'POST_COMMENT_REQUEST',
   };
   dayjs.extend(relativeTime);
-  const lastUpdate = comments[comments.length - 1].created;
+  const lastUpdate =
+    comments.length > 0
+      ? dayjs(comments[comments.length - 1].created).fromNow()
+      : 'never';
   const openDate = dayjs().format('MMM D YYYY');
   return (
     <View style={{height: '100%'}}>
       <ScrollView>
         <View style={styles.timeContainer}>
           <View style={styles.timeSeparator} />
-          <Text style={styles.timeText}>
-            Last prayed {dayjs(lastUpdate).fromNow()}
-          </Text>
+          <Text style={styles.timeText}>Last prayed {lastUpdate}</Text>
         </View>
         <View style={styles.infoContainer}>
           <View style={styles.infoItemContainer}>

@@ -15,3 +15,35 @@ export enum StoreSlice {
   Prayer = 'prayer',
   Comment = 'comment',
 }
+
+export type User = {
+  token: string;
+  name: string;
+  email: string;
+  id: number;
+}
+
+export type Column = {
+  id: number;
+  title: string;
+  description: string | null;
+  userId: number;
+}
+
+export type Prayer ={
+  id: number;
+  title: string;
+  description: string | null;
+  columnId: number;
+  checked: boolean;
+  commentsIds: Array<number | null>;
+}
+
+export type Comment ={
+  id: number;
+  body: string;
+  created: string;
+  prayerId: number | null;
+  userId: number;
+  userName: string | null;
+}

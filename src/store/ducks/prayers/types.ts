@@ -7,7 +7,7 @@ export interface LoadPrayer {
   commentsIds: Array<number | null>;
 }
 
-export interface PostPrayer {
+export interface CreatePrayer {
   title: string;
   parentId: number;
   description: string;

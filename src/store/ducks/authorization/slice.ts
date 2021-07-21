@@ -1,12 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {StoreSlice} from '../../../types';
+import {StoreSlice, User} from '../../../types';
 import {SignIn, SignUp} from './types';
-interface User {
-  token: string;
-  name: string;
-  email: string;
-  id: number;
-}
+
 interface AuthorizationState {
   user: User | null;
   authenticated: boolean;

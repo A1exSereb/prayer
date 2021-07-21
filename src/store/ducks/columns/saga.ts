@@ -1,12 +1,12 @@
 import {put, call, select} from '@redux-saga/core/effects';
 import {takeLeading} from 'redux-saga/effects';
 import {RootState} from 'src/store/rootReducer';
-import {PostColumn, PostColumnPromise} from 'src/store/utils/types';
+import {CreateColumn, CreateColumnPromise} from 'src/store/utils/types';
 import {
   getColumnError,
   getColumnSuccess,
-  postColumnError,
-  postColumnSuccess,
+  createColumnError,
+  createColumnSuccess,
 } from '../../ducks/columns/slice';
 import {Api} from '../../../services/service';
 
@@ -16,7 +16,7 @@ export const getColumnRequest = () => ({
   type: 'GET_COLUMN_REQUEST',
 });
 
-export const postColumnRequest = (payload: PostColumn) => ({
+export const postColumnRequest = (payload: CreateColumn) => ({
   type: 'POST_COLUMN_REQUEST',
   payload,
 });
@@ -34,21 +34,21 @@ export function* getColumnWorker(): Generator {
 }
 
 
-export function* postColumnWorker(action: {
+export function* createColumnWorker(action: {
   type: string;
-  payload: PostColumn;
+  payload: CreateColumn;
 }): Generator {
   try {
-    const data = yield call(Api.postColumn, action.payload);
-    yield put(postColumnSuccess(data));
+    const data = yield call(Api.createColumn, action.payload);
+    yield put(createColumnSuccess(data));
     console.log(data);
   } catch {
-    yield put(postColumnError());
+    yield put(createColumnError());
   }
 }
 
 // watcher
 export function* watchColumnSaga() {
   yield takeLeading('GET_COLUMN_REQUEST', getColumnWorker);
-  yield takeLeading('POST_COLUMN_REQUEST', postColumnWorker);
+  yield takeLeading('POST_COLUMN_REQUEST', createColumnWorker);
 }

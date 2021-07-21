@@ -1,3 +1,5 @@
+import {Prayer, User} from '../../types';
+
 export interface SignUp {
   name: string;
   password: string;
@@ -7,11 +9,11 @@ export interface SignIn {
   password: string;
   email: string;
 }
-export interface PostColumn {
+export interface CreateColumn {
   title: string;
   description: string;
 }
-export interface PostPrayer {
+export interface CreatePrayer {
   title: string;
   parentId: number;
 }
@@ -42,7 +44,7 @@ export interface GetColumnPromise {
   userId: number;
 }
 
-export interface PostColumnPromise {
+export interface CreateColumnPromise {
   title: string;
   description: string;
   user: number;
@@ -58,7 +60,7 @@ export interface GetPrayerPromise {
   commentsId: Array<number>;
 }
 
-export interface PostPrayerPromise {
+export interface CreatePrayerPromise {
   id: number;
   title: string;
   description: string;
@@ -80,22 +82,10 @@ export interface GetComment {
   userId: number;
 }
 
-export interface PostCommentResponse {
+export interface CreateCommentResponse {
   body: string;
-  card: {
-    id: number;
-    title: string;
-    description: string;
-    checked: boolean;
-    columnId: number;
-    commentsId: Array<number>;
-  };
-  user: {
-    id: number;
-    email: string;
-    name: string;
-    token: string;
-  };
+  card: Prayer;
+  user: User;
   id: number;
   created: string;
   prayerId: number;

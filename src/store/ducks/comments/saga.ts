@@ -1,18 +1,17 @@
 import {put, call} from '@redux-saga/core/effects';
-import {takeEvery, takeLatest, takeLeading} from 'redux-saga/effects';
+import {takeEvery, takeLeading} from 'redux-saga/effects';
 import {
   getCommentSuccess,
   getCommentError,
-  postCommentSuccess,
-  postCommentError,
+  createCommentSuccess,
+  createCommentError,
 } from '../../ducks/comments/slice';
 import {Api} from '../../../services/service';
-import { postColumnWorker } from '../columns/saga';
 
 // requests
 export const getCommentRequest = () => ({type: 'GET_COMMENT_REQUEST'});
 
-export const postCommentRequest = (payload: {title: string}) => ({
+export const createCommentRequest = (payload: {title: string}) => ({
   type: 'POST_COMMENT_REQUEST',
   payload,
 });
@@ -20,30 +19,28 @@ export const postCommentRequest = (payload: {title: string}) => ({
 // worker
 export function* getCommentWorker(): Generator {
   try {
-    const data = yield call(Api.getComments);
+    const data = yield call(Api.getPrayer);
     yield put(getCommentSuccess(data));
-    yield console.log('comments', data);
   } catch {
     yield getCommentError();
   }
 }
-
-export function* postCommentWorker(action: {
+export function* createCommentWorker(action: {
   type: string;
   payload: {parentId: number; title: string};
 }): Generator {
   try {
-    const data = yield call(Api.postComment, action.payload);
-    yield put(postCommentSuccess(data));
+    const data = yield call(Api.createComment, action.payload);
+    yield put(createCommentSuccess(data));
     yield console.log('comments', data);
   } catch {
-    yield postCommentError();
+    yield createCommentError();
   }
 }
 
 // watcher
 
 export function* watchCommentSaga() {
-  yield takeEvery('GET_COMMENT_REQUEST', getCommentWorker);
-  yield takeEvery('POST_COMMENT_REQUEST', postCommentWorker);
+  yield takeLeading('GET_COMMENT_REQUEST', getCommentWorker);
+  yield takeEvery('POST_COMMENT_REQUEST', createCommentWorker);
 }

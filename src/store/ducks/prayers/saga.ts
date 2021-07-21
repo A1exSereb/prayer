@@ -12,7 +12,7 @@ import {
   deletePrayerError,
 } from '../../ducks/prayers/slice';
 import {Api} from '../../../services/service';
-import {ChangePrayerRequest, PostPrayer} from './types';
+import {ChangePrayerRequest, CreatePrayer} from './types';
 
 // requests
 export const getPrayerRequest = () => ({type: 'GET_PRAYER_REQUEST'});
@@ -48,10 +48,10 @@ export function* getPrayerWorker(): Generator {
 
 export function* postPrayerWorker(action: {
   type: string;
-  payload: PostPrayer;
+  payload: CreatePrayer;
 }): Generator {
   try {
-    const data = yield call(Api.postPrayer, action.payload);
+    const data = yield call(Api.createPrayer, action.payload);
     yield put(postPrayerSuccess(data));
   } catch {
     yield put(postPrayerError());
