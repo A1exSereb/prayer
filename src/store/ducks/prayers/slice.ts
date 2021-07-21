@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Prayer, StoreSlice} from '../../../types';
+import {CreatePrayerResponse, Prayer, StoreSlice} from '../../../types';
 import {ChangePrayer, DeletePrayer, LoadPrayer, CreatePrayer} from './types';
 
 interface PrayerState {
@@ -19,68 +19,47 @@ const prayerSlice = createSlice({
   initialState,
   reducers: {
     getPrayerLoading: state => {
-      return {...state, loading: true};
+      state.loading = true;
     },
-    getPrayerSuccess: (state, action: PayloadAction<Array<LoadPrayer>>) => {
-      return {
-        ...state,
-        prayer: action.payload,
-        loading: false,
-      };
+    getPrayerSuccess: (state, action: PayloadAction<Array<Prayer>>) => {
+      state.prayer = action.payload;
+      state.loading = false;
     },
     getPrayerError: state => {
-      return {
-        ...state,
-        loading: false,
-        error: true,
-      };
+      state.loading = false;
+      state.error = true;
     },
-    createPrayerSuccess: (state, action: PayloadAction<CreatePrayer>) => {
-      return {
-        ...state,
-        prayer: state.prayer.concat({
-          title: action.payload.title,
-          description: action.payload.description,
-          checked: action.payload.checked,
-          id: action.payload.id,
-          columnId: action.payload.columnId,
-          commentsIds: [null],
-        }),
-      };
+    createPrayerSuccess: (
+      state,
+      action: PayloadAction<CreatePrayerResponse>,
+    ) => {
+      state.prayer.push({
+        title: action.payload.title,
+        description: action.payload.description,
+        checked: action.payload.checked,
+        id: action.payload.id,
+        columnId: action.payload.columnId,
+        commentsIds: [null],
+      });
     },
     createPrayerError: state => {
-      return {
-        ...state,
-        loading: false,
-        error: true,
-      };
+      state.loading = false;
+      state.error = true;
     },
-    changePrayerSuccess: (state, action: PayloadAction<ChangePrayer>) => {
-      return {
-        ...state,
-        prayer: state.prayer.map(item => {
-          return item.id === action.payload.id ? {...action.payload} : item;
-        }),
-      };
+    changePrayerSuccess: (state, action: PayloadAction<Prayer>) => {
+      state.prayer = state.prayer.map(item => {
+        return item.id === action.payload.id ? {...action.payload} : item;
+      });
     },
     changePrayerError: state => {
-      return {
-        ...state,
-        error: true,
-      };
+      state.error = true;
     },
     deletePrayerSuccess: (state, action: PayloadAction<number>) => {
-      return{
-        ...state,
-        prayer: state.prayer.filter(item => item.id !== action.payload),
-      }
+      state.prayer = state.prayer.filter(item => item.id !== action.payload);
     },
-    deletePrayerError: state =>{
-      return{
-        ...state,
-        error: true,
-      }
-    }
+    deletePrayerError: state => {
+      state.error = true;
+    },
   },
 });
 

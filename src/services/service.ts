@@ -13,6 +13,7 @@ import {
   Comment,
   CreateCommentDto,
   CreateCommentResponse,
+  CreateColumnResponse,
 } from '../types';
 import httpClient from '../store/utils/prayerInstance';
 
@@ -44,7 +45,7 @@ export const Api = {
 
     return request.data;
   },
-  async createColumn(payload: CreateColumnDto): Promise<Column> {
+  async createColumn(payload: CreateColumnDto): Promise<CreateColumnResponse> {
     const {title, description} = payload;
     const request = await httpClient.post(`${columns}`, {
       title,

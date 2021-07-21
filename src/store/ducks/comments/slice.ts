@@ -18,38 +18,25 @@ const commentSlice = createSlice({
   initialState,
   reducers: {
     getCommentSuccess: (state, action: PayloadAction<Array<Comment>>) => {
-      return {
-        ...state,
-        comment: action.payload,
-      };
+      state.comment = action.payload;
     },
     getCommentError: state => {
-      return {
-        ...state,
-        error: true,
-      };
+      state.error = true;
     },
     createCommentSuccess: (
       state,
       action: PayloadAction<CreateCommentResponse>,
     ) => {
-      return {
-        ...state,
-        comment: state.comment.concat({
-          id: action.payload.id,
-          body: action.payload.body,
-          created: action.payload.created,
-          prayerId: action.payload.prayerId,
-          userId: action.payload.userId,
-          userName: action.payload.user.name,
-        }),
-      };
+      state.comment.push({
+        id: action.payload.id,
+        body: action.payload.body,
+        created: action.payload.created,
+        prayerId: action.payload.prayerId,
+        userId: action.payload.userId,
+      });
     },
     createCommentError: state => {
-      return {
-        ...state,
-        error: true,
-      };
+      state.error = true;
     },
   },
 });

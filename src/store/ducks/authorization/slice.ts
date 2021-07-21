@@ -1,6 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {StoreSlice, User} from '../../../types';
-import {SignIn, SignUp} from './types';
+import {SignInResponse, SignUpResponse, StoreSlice, User} from '../../../types';
 
 interface AuthorizationState {
   user: User | null;
@@ -21,34 +20,27 @@ const authorizationSlice = createSlice({
   initialState,
   reducers: {
     signInLoading: state => {
-      return {...state, loading: true};
+      state.loading = true;
     },
-    signInSuccess: (state, action: PayloadAction<SignIn>) => {
-      return {
-        ...state,
-        user: action.payload,
-        authenticated: true,
-        loading: false,
-      };
+    signInSuccess: (state, action: PayloadAction<SignInResponse>) => {
+      state.user = action.payload;
+      state.authenticated = true;
+      state.loading = false;
     },
     signInError: state => {
       state.error = true;
     },
     signUpLoading: state => {
-      return {...state, loading: true};
+      state.loading = true;
     },
-    signUpSuccess: (state, action: PayloadAction<SignUp>) => {
-      return {
-        ...state,
-        user: {
-          token: action.payload.token,
-          name: action.payload.name,
-          email: action.payload.email,
-          id: action.payload.id,
-        },
-        authenticated: true,
-      };
-    },
+    signUpSuccess: (state, action: PayloadAction<SignUpResponse>) => {
+      state.user = {
+        token: action.payload.token,
+        name: action.payload.name,
+        email: action.payload.email,
+        id: action.payload.id,};
+        state.authenticated = true;
+      },
     signUpError: state => {
       state.error = true;
     },

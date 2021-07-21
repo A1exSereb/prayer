@@ -1,6 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Column, StoreSlice} from '../../../types';
-import {LoadColumn, PostColumn} from './types';
+import {Column, CreateColumnResponse, StoreSlice} from '../../../types';
 
 interface ColumnState {
   loading: boolean;
@@ -18,39 +17,27 @@ const columnSlice = createSlice({
   name: StoreSlice.Column,
   initialState,
   reducers: {
-    getColumnSuccess: (state, action: PayloadAction<Array<LoadColumn>>) => {
-      return {
-        ...state,
-        columns: action.payload,
-        loading: false,
-      };
+    getColumnSuccess: (state, action: PayloadAction<Array<Column>>): void => {
+      state.columns = action.payload;
+      state.loading = false;
     },
     getColumnError: state => {
-      return {
-        ...state,
-        loading: false,
-        error: true,
-      };
+      state.loading = false;
+      state.error = true;
     },
     createColumnSuccess: (
       state,
-      action: PayloadAction<PostColumn>,
-    ): ColumnState => {
-      return {
-        ...state,
-        columns: state.columns.concat({
-          id: action.payload.id,
-          description: action.payload.description,
-          userId: action.payload.user,
-          title: action.payload.title,
-        }),
-      };
+      action: PayloadAction<CreateColumnResponse>,
+    ) => {
+      state.columns.push({
+        id: action.payload.id,
+        description: action.payload.description,
+        userId: action.payload.user,
+        title: action.payload.title,
+      });
     },
     createColumnError: state => {
-      return {
-        ...state,
-        error: true,
-      };
+      state.error = true;
     },
   },
 });

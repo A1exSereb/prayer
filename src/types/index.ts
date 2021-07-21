@@ -84,6 +84,13 @@ export interface CreateColumnDto {
   description: string;
 }
 
+export interface CreateColumnResponse {
+  id: number;
+  title: string;
+  description: string | null;
+  user: number;
+}
+
 // prayer types
 
 export interface CreatePrayerDto {
