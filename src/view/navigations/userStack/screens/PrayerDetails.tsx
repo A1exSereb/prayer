@@ -20,7 +20,7 @@ export const PrayerDetails = ({route}: PrayerDetailsProp): JSX.Element => {
   const inputProps = {
     placeholder: 'Add a comment...',
     parentId: route.params.prayerId,
-    imageSource: '../../../assets/message.jpg',
+    imageSource: '../../../images/assets/message.jpg',
     request: 'POST_COMMENT_REQUEST',
   };
   dayjs.extend(relativeTime);

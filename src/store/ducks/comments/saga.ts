@@ -6,7 +6,7 @@ import {
   postCommentSuccess,
   postCommentError,
 } from '../../ducks/comments/slice';
-import {Api} from '../../utils/service';
+import {Api} from '../../../services/service';
 import { postColumnWorker } from '../columns/saga';
 
 // requests

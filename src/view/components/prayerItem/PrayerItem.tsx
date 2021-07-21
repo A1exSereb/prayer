@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import CheckBox from '@react-native-community/checkbox';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {useAppDispatch} from '../../../store/store';
-import {AppRoutes} from '../../../types/AppRoutes';
+import {AppRoutes} from '../../../types';
 import {getCommentsById} from '../../../store/ducks/comments/selectors';
 import {useSelector} from 'react-redux';
 import {
@@ -76,7 +76,7 @@ export const PrayerItem = ({
             <View style={styles.flexContainer}>
               <Image
                 style={styles.marginRight}
-                source={require('../../../assets/user.png')}
+                source={require('../../../assets/images/user.png')}
               />
               <Text style={styles.marginRight}>3</Text>
             </View>
@@ -84,7 +84,7 @@ export const PrayerItem = ({
               <View style={styles.flexContainer}>
                 <Image
                   style={styles.marginRight}
-                  source={require('../../../assets/prayer_line.png')}
+                  source={require('../../../assets/images/prayer_line.png')}
                 />
                 <Text style={styles.marginRight}>{comments.length}</Text>
               </View>

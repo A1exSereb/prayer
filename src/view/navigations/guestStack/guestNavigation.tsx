@@ -3,7 +3,7 @@ import {
   StackNavigationProp,
 } from '@react-navigation/stack';
 import React from 'react';
-import {AppRoutes} from '../../../types/AppRoutes';
+import {AppRoutes} from '../../../types';
 import {AuthorizationSignIn} from './screens/AuthorizationSignIn';
 import {AuthorizationSignUp} from './screens/AuthorizationSignUp';
 

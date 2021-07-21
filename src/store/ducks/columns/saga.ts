@@ -8,7 +8,7 @@ import {
   postColumnError,
   postColumnSuccess,
 } from '../../ducks/columns/slice';
-import {Api} from '../../utils/service';
+import {Api} from '../../../services/service';
 
 // requests
 

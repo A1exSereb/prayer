@@ -5,7 +5,7 @@ import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {View} from 'react-native';
 import {ModalMyDesk} from './screens/ModalMyDesk';
 import {PrayerTabs} from './tabs/PrayerTabs';
-import {AppRoutes} from '../../../types/AppRoutes';
+import {AppRoutes} from '../../../types';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {CompositeNavigationProp, RouteProp} from '@react-navigation/native';
 import {PrayerDetails} from './screens/PrayerDetails';
@@ -41,7 +41,7 @@ export const UserNavigation = () => {
               <TouchableOpacity
                 onPress={() => navigation.navigate(AppRoutes.ModalMyDesk)}>
                 <Image
-                  source={require('../../../assets/plus.jpg')}
+                  source={require('../../../assets/images/plus.jpg')}
                   style={styles.navigatorAddButton}
                 />
               </TouchableOpacity>
@@ -91,7 +91,7 @@ export const UserNavigation = () => {
           headerRight: () => (
             <View>
               <Image
-                source={require('../../../assets/prayer_line_white.png')}
+                source={require('../../../assets/images/prayer_line_white.png')}
                 style={styles.navigatorPrayerHand}
               />
             </View>

@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import {useSelector} from 'react-redux';
-import {AppRoutes} from '../../../../types/AppRoutes';
+import {AppRoutes} from '../../../../types';
 import {Loading} from '../../../components/loading/Loading';
 import {getColumn} from '../../../../store/ducks/columns/selectors';
 import {useAppDispatch} from '../../../../store/store';

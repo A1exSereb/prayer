@@ -9,7 +9,7 @@ import {
   signUpSuccess,
   signUpError,
 } from '../../ducks/authorization/slice';
-import {Api} from '../../utils/service';
+import {Api} from '../../../services/service';
 import {SignIn, SignUp, SignUpRequest} from './types';
 
 // requests

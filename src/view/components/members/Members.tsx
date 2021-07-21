@@ -14,7 +14,7 @@ export const Members = ({members}: MembersProp) => {
         <TouchableOpacity>
           <Image
             style={styles.image}
-            source={require('../../../assets/add_user.png')}
+            source={require('../../../assets/images/add_user.png')}
           />
         </TouchableOpacity>
       </View>

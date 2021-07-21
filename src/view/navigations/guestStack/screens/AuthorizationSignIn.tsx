@@ -10,7 +10,7 @@ import {useSelector} from 'react-redux';
 import {useAppDispatch} from '../../../../store/store';
 import {RootState} from '../../../../store/rootReducer';
 import {SignInScreenNavigationProp} from '../guestNavigation';
-import {AppRoutes} from '../../../../types/AppRoutes';
+import {AppRoutes} from '../../../../types';
 import {signInRequest} from '../../../../store/ducks/authorization/saga';
 
 export const AuthorizationSignIn: React.FC<SignInScreenNavigationProp> = ({

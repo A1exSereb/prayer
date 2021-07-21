@@ -26,7 +26,7 @@ export const CommentList = ({comments}: CommentListProps) => {
             <View key={item.id} style={styles.commentContainer}>
               <Image
                 style={styles.commentImage}
-                source={require('../../../assets/user1.png')}
+                source={require('../../../assets/images/user1.png')}
               />
               <View style={styles.commentTextContainer}>
                 <View style={styles.commentHeadersContainer}>

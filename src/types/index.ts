@@ -8,3 +8,10 @@ export enum AppRoutes {
   Subscribed = 'Subscribed',
   PrayerDetails = 'PrayerDetails',
 }
+
+export enum StoreSlice {
+  Authorization = 'authorization',
+  Column = 'column',
+  Prayer = 'prayer',
+  Comment = 'comment',
+}

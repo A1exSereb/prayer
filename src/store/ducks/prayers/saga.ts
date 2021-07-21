@@ -1,6 +1,5 @@
 import {put, call, select} from '@redux-saga/core/effects';
 import {takeEvery, takeLeading} from 'redux-saga/effects';
-import {RootState} from 'src/store/rootReducer';
 import {
   getPrayerError,
   getPrayerSuccess,
@@ -12,7 +11,7 @@ import {
   deletePrayerSuccess,
   deletePrayerError,
 } from '../../ducks/prayers/slice';
-import {Api} from '../../utils/service';
+import {Api} from '../../../services/service';
 import {ChangePrayerRequest, PostPrayer} from './types';
 
 // requests

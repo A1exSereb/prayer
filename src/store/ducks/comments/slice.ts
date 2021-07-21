@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {PostCommentResponse} from '../../../store/utils/types';
-import {StoreSlice} from '../../../types/StoreSlice';
+import {StoreSlice} from '../../../types';
 export interface Comment {
   id: number;
   body: string;

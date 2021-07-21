@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {StoreSlice} from '../../../types/StoreSlice';
+import {StoreSlice} from '../../../types';
 import {SignIn, SignUp} from './types';
 interface User {
   token: string;

@@ -7,7 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import Plus from '../../../../assets/prayer_line.png';
+import Plus from '../../../../assets/images/prayer_line.png';
 import {Input} from '../../../components/input/input';
 import {PrayerTabsScreenNavigationProp} from '../tabs/PrayerTabs';
 import {PrayerItem} from '../../../components/prayerItem/PrayerItem';
@@ -31,7 +31,7 @@ export const MyPrayers = ({
   );
   const inputProps = {
     placeholder: 'Add a prayer...',
-    imageSource: '../../../assets/plus.jpg',
+    imageSource: '../../../assets/images/plus.jpg',
     request: 'POST_PRAYER_REQUEST',
     parentId: route.params.columnId,
   };

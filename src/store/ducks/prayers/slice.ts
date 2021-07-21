@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {StoreSlice} from '../../../types/StoreSlice';
+import {StoreSlice} from '../../../types';
 import {ChangePrayer, DeletePrayer, LoadPrayer, PostPrayer} from './types';
 
 interface PrayerState {

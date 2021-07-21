@@ -2,7 +2,7 @@ import React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {Subscribed} from '../screens/Subscribed';
 import {MyPrayers} from '../screens/MyPrayers';
-import {AppRoutes} from '../../../../types/AppRoutes';
+import {AppRoutes} from '../../../../types';
 import {UserNavigationParams} from '../userNavigation';
 import {RouteProp} from '@react-navigation/native';
 import {Text, View, StyleSheet} from 'react-native';
