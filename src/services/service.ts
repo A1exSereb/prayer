@@ -1,24 +1,23 @@
 import {signin, signup, columns, prayers, comments} from '../store/utils/urls';
 import {
-  GetColumnPromise,
-  GetComment,
-  GetPrayerPromise,
-  CreateColumn,
-  CreateColumnPromise,
+  CreateColumnDto,
+  SignInDto,
+  SignUpDto,
+  Column,
+  Prayer,
+  SignUpResponse,
+  SignInResponse,
+  CreatePrayerDto,
+  CreatePrayerResponse,
+  UpdatePrayerDto,
+  Comment,
+  CreateCommentDto,
   CreateCommentResponse,
-  CreatePrayer,
-  CreatePrayerPromise,
-  SignIn,
-  SignInPromise,
-  SignUp,
-  SignUpPromise,
-} from '../store/utils/types';
+} from '../types';
 import httpClient from '../store/utils/prayerInstance';
-import {AxiosResponse} from 'axios';
-import {ChangePrayerRequest, LoadPrayer} from '../store/ducks/prayers/types';
 
 export const Api = {
-  async signUp(payload: SignUp): Promise<SignUpPromise> {
+  async signUp(payload: SignUpDto): Promise<SignUpResponse> {
     const {email, password, name} = payload;
 
     const request = await httpClient.post(`${signup}`, {
@@ -30,7 +29,7 @@ export const Api = {
     console.log('request', request);
     return request.data;
   },
-  async signIn(payload: SignIn): Promise<AxiosResponse<SignInPromise>> {
+  async signIn(payload: SignInDto): Promise<SignInResponse> {
     const {email, password} = payload;
 
     const request = await httpClient.post(`${signin}`, {
@@ -40,13 +39,12 @@ export const Api = {
 
     return request.data;
   },
-  async getColumn(): Promise<Array<GetColumnPromise>> {
-    const request: AxiosResponse<Array<GetColumnPromise>> =
-      await httpClient.get(`${columns}`);
+  async getColumn(): Promise<Column> {
+    const request = await httpClient.get(`${columns}`);
 
     return request.data;
   },
-  async createColumn(payload: CreateColumn): Promise<CreateColumnPromise> {
+  async createColumn(payload: CreateColumnDto): Promise<Column> {
     const {title, description} = payload;
     const request = await httpClient.post(`${columns}`, {
       title,
@@ -55,12 +53,12 @@ export const Api = {
 
     return request.data;
   },
-  async getPrayer(): Promise<Array<GetPrayerPromise>> {
+  async getPrayer(): Promise<Array<Prayer>> {
     const request = await httpClient.get(`${prayers}`);
 
     return request.data;
   },
-  async createPrayer(payload: CreatePrayer): Promise<CreatePrayerPromise> {
+  async createPrayer(payload: CreatePrayerDto): Promise<CreatePrayerResponse> {
     const {title, parentId} = payload;
     const request = await httpClient.post(`${columns}/${parentId}${prayers}`, {
       title,
@@ -70,7 +68,7 @@ export const Api = {
     console.log('post prayer request', request.data);
     return request.data;
   },
-  async changePrayer(payload: ChangePrayerRequest): Promise<LoadPrayer> {
+  async changePrayer(payload: UpdatePrayerDto): Promise<Prayer> {
     const {title, id, description, checked} = payload;
     const request = await httpClient.put(`${prayers}/${id}`, {
       title,
@@ -83,23 +81,18 @@ export const Api = {
   async deletePrayer(id: number) {
     await httpClient.delete(`${prayers}/${id}`);
   },
-  async getComments(): Promise<Array<GetComment>> {
-    const request: AxiosResponse<Array<GetComment>> = await httpClient.get(
-      `${comments}`,
-    );
-    console.log('comments request', request);
+  async getComments(): Promise<Array<Comment>> {
+    const request = await httpClient.get(`${comments}`);
     return request.data;
   },
-  async createComment({
-    parentId,
-    title,
-  }: {
-    parentId: number;
-    title: string;
-  }): Promise<CreateCommentResponse> {
-    const request: AxiosResponse<CreateCommentResponse> = await httpClient.post(
-      `${prayers}/${parentId}${comments}`,
-      {body: title},
+  async createComment(
+    payload: CreateCommentDto,
+  ): Promise<CreateCommentResponse> {
+    const request = await httpClient.post(
+      `${prayers}/${payload.parentId}${comments}`,
+      {
+        body: payload.title,
+      },
     );
     return request.data;
   },

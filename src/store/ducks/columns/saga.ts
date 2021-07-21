@@ -1,7 +1,7 @@
 import {put, call, select} from '@redux-saga/core/effects';
 import {takeLeading} from 'redux-saga/effects';
 import {RootState} from 'src/store/rootReducer';
-import {CreateColumn, CreateColumnPromise} from 'src/store/utils/types';
+import {CreateColumn, CreateColumnPromise} from 'src/types/types';
 import {
   getColumnError,
   getColumnSuccess,

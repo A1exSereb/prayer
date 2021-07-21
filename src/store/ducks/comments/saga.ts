@@ -7,6 +7,7 @@ import {
   createCommentError,
 } from '../../ducks/comments/slice';
 import {Api} from '../../../services/service';
+import {CreateCommentDto} from '../../../types';
 
 // requests
 export const getCommentRequest = () => ({type: 'GET_COMMENT_REQUEST'});
@@ -27,7 +28,7 @@ export function* getCommentWorker(): Generator {
 }
 export function* createCommentWorker(action: {
   type: string;
-  payload: {parentId: number; title: string};
+  payload: CreateCommentDto;
 }): Generator {
   try {
     const data = yield call(Api.createComment, action.payload);

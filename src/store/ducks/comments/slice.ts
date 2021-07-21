@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {CreateCommentResponse} from '../../../store/utils/types';
+import {CreateCommentResponse} from '../../../types/types';
 import {Comment, StoreSlice} from '../../../types';
 
 interface CommentState {
