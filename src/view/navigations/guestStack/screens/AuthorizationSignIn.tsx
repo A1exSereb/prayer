@@ -5,21 +5,26 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
+  Button,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import {useAppDispatch} from '../../../../store/store';
 import {RootState} from '../../../../store/rootReducer';
 import {SignInScreenNavigationProp} from '../guestNavigation';
-import {AppRoutes} from '../../../../types';
+import {AppRoutes, SignInDto} from '../../../../types';
 import {signInRequest} from '../../../../store/ducks/authorization/saga';
+import {Field, Form} from 'react-final-form';
 
 export const AuthorizationSignIn: React.FC<SignInScreenNavigationProp> = ({
   navigation,
 }: SignInScreenNavigationProp) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const dispatch = useAppDispatch();
   const {loading} = useSelector((state: RootState) => state.authorization);
+
+  const onSubmit = (value: SignInDto) => {
+    const {email, password} = value;
+    dispatch(signInRequest({email, password}));
+  };
   if (loading) {
     return (
       <View style={styles.container}>
@@ -30,36 +35,51 @@ export const AuthorizationSignIn: React.FC<SignInScreenNavigationProp> = ({
   return (
     <View style={styles.container}>
       <View style={styles.formWrapper}>
-        <View style={styles.formRow}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Enter email"
-            placeholderTextColor="#000"
-            onChangeText={text => setEmail(text)}
-          />
-        </View>
-        <View style={styles.formRow}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Enter password"
-            value={password}
-            secureTextEntry
-            placeholderTextColor="#000"
-            onChangeText={text => setPassword(text)}
-          />
-        </View>
-        <View style={styles.btnContainer}>
-          <TouchableOpacity
-            style={styles.signInBtn}
-            onPress={() => dispatch(signInRequest({email, password}))}>
-            <Text style={styles.signInText}>Sign In</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.signUpBtn}
-            onPress={() => navigation.navigate(AppRoutes.SignUp)}>
-            <Text style={styles.signUpText}>Sign Up</Text>
-          </TouchableOpacity>
-        </View>
+        <Form
+          onSubmit={onSubmit}
+          render={({handleSubmit}) => (
+            <View>
+              <Field name="email" placeholder="Enter your email">
+                {({input, placeholder}) => {
+                  return (
+                    <View style={styles.formRow}>
+                      <TextInput
+                        style={styles.textInput}
+                        placeholder={placeholder}
+                        {...input}
+                      />
+                    </View>
+                  );
+                }}
+              </Field>
+              <Field name="password" placeholder="Enter your password">
+                {({input, placeholder}) => {
+                  return (
+                    <View style={styles.formRow}>
+                      <TextInput
+                        style={styles.textInput}
+                        placeholder={placeholder}
+                        {...input}
+                      />
+                    </View>
+                  );
+                }}
+              </Field>
+              <View style={styles.btnContainer}>
+                <TouchableOpacity
+                  style={styles.signInBtn}
+                  onPress={handleSubmit}>
+                  <Text style={styles.signInText}>Sign In</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.signUpBtn}
+                  onPress={() => navigation.navigate(AppRoutes.SignUp)}>
+                  <Text style={styles.signUpText}>Sign Up</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+        />
       </View>
     </View>
   );

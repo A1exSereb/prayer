@@ -9,6 +9,7 @@ import {
   Image,
 } from 'react-native';
 import {useAppDispatch} from '../../../store/store';
+import {Field, Form} from 'react-final-form';
 interface InputProps {
   placeholder: string;
   imageSource: string;
@@ -21,31 +22,42 @@ export const Input = ({
   request,
   parentId,
 }: InputProps): React.Element => {
-  const [input, setInput] = useState('');
   const dispatch = useAppDispatch();
   console.log('image source', imageSource);
+
+  const onSubmit = (value: {title: string}) => {
+    const {title} = value;
+    title !== '' &&
+      dispatch({
+        type: request,
+        payload: {title, parentId},
+      });
+  };
+
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => {
-          if (input !== '') {
-            dispatch({
-              type: request,
-              payload: {title: input, parentId},
-            });
-          }
-          setInput('');
-          console.log('button pressed');
-        }}>
-        <Image source={{uri: imageSource}} style={styles.icon} />
-      </TouchableOpacity>
-      <TextInput
-        style={styles.input}
-        placeholder={placeholder}
-        value={input}
-        onChangeText={text => setInput(text)}
-      />
-    </View>
+    <Form
+      onSubmit={onSubmit}
+      render={({handleSubmit}) => (
+        <View style={styles.container}>
+          <TouchableOpacity onPress={() => handleSubmit()}>
+            <Image source={{uri: imageSource}} style={styles.icon} />
+          </TouchableOpacity>
+          <Field name="title" placeholder={placeholder}>
+            {({input, placeholder}) => {
+              return (
+                <View style={styles.input}>
+                  <TextInput
+                    style={styles.input}
+                    placeholder={placeholder}
+                    {...input}
+                  />
+                </View>
+              );
+            }}
+          </Field>
+        </View>
+      )}
+    />
   );
 };
 
