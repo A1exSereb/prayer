@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import CheckBox from '@react-native-community/checkbox';
+import CheckBox from 'react-native-check-box';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {useAppDispatch} from '../../../store/store';
 import {AppRoutes} from '../../../types';
@@ -47,9 +47,11 @@ export const PrayerItem = ({
         }}
         key={id}>
         <CheckBox
-          value={checked}
-          tintColors={{true: '#000', false: '#000'}}
-          onChange={() => {
+          isChecked={checked}
+          checkBoxColor='#000'
+          checkedImage={<Image source={require('../../../assets/images/On.png')}/>}
+          unCheckedImage={<Image source={require('../../../assets/images/Off.png')}/>}
+          onClick={() => {
             dispatch(
               changePrayerRequest({id, title, checked: !checked, description}),
             );

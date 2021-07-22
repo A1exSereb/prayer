@@ -7,7 +7,6 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import Plus from '../../../../assets/images/prayer_line.png';
 import {Input} from '../../../components/input/input';
 import {PrayerTabsScreenNavigationProp} from '../tabs/PrayerTabs';
 import {PrayerItem} from '../../../components/prayerItem/PrayerItem';
@@ -17,7 +16,6 @@ import {
   getCheckedPrayerById,
   getUncheckedPrayerById,
 } from '../../../../store/ducks/prayers/selectors';
-
 export const MyPrayers = ({
   route,
   navigation

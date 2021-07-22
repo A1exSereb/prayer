@@ -96,14 +96,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   Btn: {
-    backgroundColor: '#1aa11a',
+    backgroundColor: '#BFB393',
     paddingVertical: 10,
     marginTop: 10,
     width: '45%',
+    borderRadius: 10,
   },
   btnText: {
     textAlign: 'center',
-    color: '#000',
+    color: '#fff',
     fontSize: 18,
     fontWeight: '800',
   },
